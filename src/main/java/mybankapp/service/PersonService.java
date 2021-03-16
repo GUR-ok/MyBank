@@ -1,9 +1,12 @@
 package mybankapp.service;
 
 import mybankapp.dao.PersonDAO;
+import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class PersonService {
@@ -15,13 +18,14 @@ public class PersonService {
         personDAO.create(person);
     }
 
-    public Person getPerson(int id){
+    public Person getPerson(UUID id){
         return personDAO.find(id);
     }
 
-    /*
-    public Person getPerson(String uuid){
-        return personDAO.find(uuid);
-    }*/
-
+    public void addAccount(CurrencyAccount account, UUID personUUID) {
+        Person person = personDAO.find(personUUID);
+        person.getAccounts().add(account);
+        account.setOwner(person);
+        personDAO.createAccount(account);
+    }
 }
