@@ -21,8 +21,6 @@ public class Transaction {
     @Column(name = "amount")
     private double amount;
 
-    /**************************************/
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "account_id", nullable = false)
     private CurrencyAccount account;

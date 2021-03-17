@@ -1,31 +1,39 @@
 package mybankapp.service;
 
+import lombok.RequiredArgsConstructor;
 import mybankapp.dao.PersonDAO;
 import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PersonService {
 
-    @Autowired
-    private PersonDAO personDAO;
+    private final PersonDAO personDAO;
 
     public void createPerson(Person person){
         personDAO.create(person);
     }
 
-    public Person getPerson(UUID id){
+    public Optional<Person> getPerson(UUID id){
         return personDAO.find(id);
     }
 
     public void addAccount(CurrencyAccount account, UUID personUUID) {
-        Person person = personDAO.find(personUUID);
-        person.getAccounts().add(account);
-        account.setOwner(person);
-        personDAO.createAccount(account);
+        Optional<Person> optionalPerson = personDAO.find(personUUID);
+        if (optionalPerson.isPresent()) {
+            optionalPerson.get().getAccounts().add(account);
+            account.setOwner(optionalPerson.get());
+            personDAO.createAccount(account);
+        }
+    }
+
+    public List<CurrencyAccount> getAccounts(UUID personUUID) {
+        return personDAO.getPersonAccounts(personUUID);
     }
 }

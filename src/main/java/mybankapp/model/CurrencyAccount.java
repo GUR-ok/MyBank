@@ -26,13 +26,10 @@ public class CurrencyAccount {
     @Column(name = "account_currency")
     private Currency currency;
 
-
-    /**************************************/
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uuid", nullable = false)
     private Person owner;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<Transaction> transactions;
 }
