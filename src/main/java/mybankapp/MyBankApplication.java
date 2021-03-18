@@ -8,6 +8,6 @@ import org.springframework.context.ApplicationContext;
 public class MyBankApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(MyBankApplication.class, args);
+        SpringApplication.run(MyBankApplication.class, args);
     }
 }
