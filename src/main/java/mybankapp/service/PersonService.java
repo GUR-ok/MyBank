@@ -16,5 +16,6 @@ public interface PersonService {
     void addAccount(CurrencyAccount account, UUID personUUID);
     List<CurrencyAccount> getAccounts(UUID personUUID);
     List<Transaction> getAccountTransactions(long accountId);
-
+    void deletePerson(UUID personUUID);
+    void deleteAccount(long accountId);
 }

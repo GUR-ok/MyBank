@@ -12,7 +12,6 @@ import java.util.Optional;
 public class TransactionDaoImpl implements TransactionDao{
 
     private final TransactionRepository transactionRepository;
-    private final AccountDao accountDao;
 
     @Override
     public void createTransaction(Transaction transaction) {

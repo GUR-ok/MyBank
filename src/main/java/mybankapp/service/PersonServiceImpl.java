@@ -52,4 +52,14 @@ public class PersonServiceImpl implements PersonService{
     public List<Transaction> getAccountTransactions(long accountId) {
         return accountDao.getAccountTransactions(accountId);
     }
+
+    @Override
+    public void deletePerson(UUID personUUID) {
+        personDAO.delete(personUUID);
+    }
+
+    @Override
+    public void deleteAccount(long accountId) {
+        accountDao.delete(accountId);
+    }
 }
