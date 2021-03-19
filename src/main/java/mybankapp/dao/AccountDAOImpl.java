@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class AccountDaoImpl implements AccountDao{
+public class AccountDAOImpl implements AccountDAO {
 
     private final CurrencyAccountRepository currencyAccountRepository;
 

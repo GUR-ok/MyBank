@@ -6,7 +6,7 @@ import mybankapp.model.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public interface AccountDao {
+public interface AccountDAO {
 
     void createAccount(CurrencyAccount account);
     Optional<CurrencyAccount> findAccount(long accountId);

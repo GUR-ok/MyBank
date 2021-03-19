@@ -1,10 +1,12 @@
 package mybankapp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,7 +23,12 @@ public class Transaction {
     @Column(name = "amount")
     private double amount;
 
-    @ManyToOne(optional = false)
+    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private CurrencyAccount account;
 }
