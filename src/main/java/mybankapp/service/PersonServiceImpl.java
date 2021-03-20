@@ -1,13 +1,15 @@
 package mybankapp.service;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.dao.AccountDao;
+import mybankapp.dao.AccountDAO;
 import mybankapp.dao.PersonDAO;
+import mybankapp.dao.TransactionDAO;
 import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
 import mybankapp.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,7 +19,8 @@ import java.util.UUID;
 public class PersonServiceImpl implements PersonService{
 
     private final PersonDAO personDAO;
-    private final AccountDao accountDao;
+    private final AccountDAO accountDAO;
+    private final TransactionDAO transactionDAO;
 
     @Override
     public void createPerson(Person person){
@@ -40,17 +43,23 @@ public class PersonServiceImpl implements PersonService{
         if (optionalPerson.isPresent()) {
             optionalPerson.get().getAccounts().add(account);
             account.setOwner(optionalPerson.get());
-            accountDao.createAccount(account);
+            accountDAO.createAccount(account);
         }
     }
+
     @Override
-    public List<CurrencyAccount> getAccounts(UUID personUUID) {
+    public Optional<CurrencyAccount> getAccount(Long accounId) {
+        return accountDAO.findAccount(accounId);
+    }
+
+    @Override
+    public List<CurrencyAccount> getAllAccounts(UUID personUUID) {
         return personDAO.getPersonAccounts(personUUID);
     }
 
     @Override
     public List<Transaction> getAccountTransactions(long accountId) {
-        return accountDao.getAccountTransactions(accountId);
+        return accountDAO.getAccountTransactions(accountId);
     }
 
     @Override
@@ -60,6 +69,20 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public void deleteAccount(long accountId) {
-        accountDao.delete(accountId);
+        accountDAO.delete(accountId);
+    }
+
+    @Override
+    @Transactional
+    public void addTransaction(Transaction transaction, Long accountId) {
+        Optional<CurrencyAccount> account = accountDAO.findAccount(accountId);
+        if (account.isPresent()){
+            account.get().getTransactions().add(transaction);
+            transaction.setAccount(account.get());
+            Double amount = account.get().getBalance();
+            amount += transaction.getAmount();
+            account.get().setBalance(amount);
+            transactionDAO.createTransaction(transaction);
+        }
     }
 }

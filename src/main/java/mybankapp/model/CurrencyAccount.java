@@ -30,6 +30,6 @@ public class CurrencyAccount {
     @JoinColumn(name = "uuid", nullable = false)
     private Person owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     private List<Transaction> transactions;
 }

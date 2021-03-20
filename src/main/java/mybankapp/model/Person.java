@@ -21,9 +21,9 @@ public class Person {
     @Column(name = "uuid", unique = true)
     private UUID uuid;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "owner", orphanRemoval = true)
     private List<CurrencyAccount> accounts;
 }
