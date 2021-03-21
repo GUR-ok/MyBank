@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: gur
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: account_id
+                  type: BIGINT
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_balance
+                  type: DOUBLE
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: account_currency
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: UUID
+                  autoIncrement: false
+                  constraints:
+                    nullable: false
