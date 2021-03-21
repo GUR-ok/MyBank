@@ -9,7 +9,7 @@ databaseChangeLog:
               - column:
                   name: account_id
                   type: BIGINT
-                  autoIncrement: false
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -31,3 +31,6 @@ databaseChangeLog:
                   autoIncrement: false
                   constraints:
                     nullable: false
+                    foreignKeyName: owner_person_uuid
+                    referencse: users (uuid)
+                    deleteCascade: true

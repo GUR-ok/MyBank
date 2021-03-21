@@ -19,11 +19,11 @@ public class CurrencyAccount {
     @Column(name = "account_id")
     private long id;
 
-    @Column(name = "account_balance")
+    @Column(name = "account_balance", nullable = false)
     private double balance;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "account_currency")
+    @Column(name = "account_currency", nullable = false)
     private Currency currency;
 
     @ManyToOne(fetch = FetchType.LAZY)

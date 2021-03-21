@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: gur
+      changes:
+        - createTable:
+            tableName: news
+            columns:
+              - column:
+                  name: news_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: short_text
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: full_text
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: link_to_img
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: button_name
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(255)
+                  constraints:
+                    unique: false
+                    nullable: false
+              - column:
+                  name: expire_date
+                  type: TIMESTAMP
+                  autoIncrement: false
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_actual
+                  type: BOOLEAN
+                  constraints:
+                    unique: false
+                    nullable: false

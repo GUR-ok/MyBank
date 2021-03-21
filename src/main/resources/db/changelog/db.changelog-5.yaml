@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: gur
+      changes:
+        - createTable:
+            tableName: watched_news
+            columns:
+              - column:
+                  name: uuid
+                  type: UUID
+                  autoIncrement: false
+                  constraints:
+                    foreignKeyName: watched_person_uuid
+                    referencse: users (uuid)
+                    deleteCascade: false
+              - column:
+                  name: news_id
+                  type: BIGINT
+                  autoIncrement: false
+                  constraints:
+                    foreignKeyName: watched_news_id
+                    referencse: news (news_id)
+                    deleteCascade: false
