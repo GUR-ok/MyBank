@@ -1,16 +1,15 @@
 package mybankapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.net.URL;
 import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "news")
@@ -39,15 +38,15 @@ public class NewsArticle {
     @Column(name = "url", nullable = false)
     private URL url;
 
-    @Column(name = "expire_date")
+    @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date expireDate;
+    private Date date = new Date();
 
     @Column(name = "is_actual", nullable = false)
-    private boolean isActual;
+    private Boolean isActual;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "watched_news",
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "uuid"))

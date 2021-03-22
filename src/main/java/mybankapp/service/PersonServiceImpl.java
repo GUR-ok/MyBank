@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
-    public Optional<CurrencyAccount> getAccount(Long accounId) {
+    public Optional<CurrencyAccount> getAccount(long accounId) {
         return accountDAO.findAccount(accounId);
     }
 
@@ -74,7 +74,7 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     @Transactional
-    public void addTransaction(Transaction transaction, Long accountId) {
+    public void addTransaction(Transaction transaction, long accountId) {
         Optional<CurrencyAccount> account = accountDAO.findAccount(accountId);
         if (account.isPresent()){
             account.get().getTransactions().add(transaction);

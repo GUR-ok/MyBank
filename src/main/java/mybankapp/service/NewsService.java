@@ -9,8 +9,10 @@ import java.util.UUID;
 public interface NewsService {
 
     void createNewsArticle(NewsArticle article);
-    Optional<NewsArticle> findNewsArticle(Long articleId);
-    List<NewsArticle> getNews();
-    void deleteNewsArticle(Long articleId);
-    void watchArticleByPerson(UUID uuid, Long articleId);
+    Optional<NewsArticle> findNewsArticle(long articleId);
+    void deleteNewsArticle(long articleId);
+    void watchArticleByPerson(UUID uuid, long articleId);
+    void unWatchArticleByPerson(UUID uuid, long articleId);
+    List<NewsArticle> getNewsfeed(UUID uuid, int numberOfNews);
+    List<NewsArticle> getArchive(UUID uuid, int numberOfNews);
 }

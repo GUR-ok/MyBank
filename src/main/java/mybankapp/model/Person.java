@@ -1,7 +1,5 @@
 package mybankapp.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,7 +10,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
@@ -30,7 +29,7 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "owner", orphanRemoval = true)
     private List<CurrencyAccount> accounts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "watched_news",
             joinColumns = @JoinColumn(name = "uuid"),
             inverseJoinColumns = @JoinColumn(name = "news_id"))

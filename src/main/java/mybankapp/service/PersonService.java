@@ -14,10 +14,10 @@ public interface PersonService {
     Optional<Person> getPerson(UUID personUUID);
     List<Person> getAllPersons();
     void addAccount(CurrencyAccount account, UUID personUUID);
-    Optional<CurrencyAccount> getAccount(Long accounId);
+    Optional<CurrencyAccount> getAccount(long accounId);
     List<CurrencyAccount> getAllAccounts(UUID personUUID);
     List<Transaction> getAccountTransactions(long accountId);
     void deletePerson(UUID personUUID);
     void deleteAccount(long accountId);
-    void addTransaction(Transaction transaction, Long accountId);
+    void addTransaction(Transaction transaction, long accountId);
 }

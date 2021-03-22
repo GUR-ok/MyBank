@@ -18,7 +18,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 
     @Override
     public void createTransaction(Transaction transaction) {
-        transaction.setDate(new Date());
         transactionRepository.saveAndFlush(transaction);
     }
 
