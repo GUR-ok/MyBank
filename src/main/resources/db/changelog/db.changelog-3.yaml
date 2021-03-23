@@ -9,7 +9,7 @@ databaseChangeLog:
               - column:
                   name: transaction_id
                   type: BIGINT
-                  autoIncrement: false
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -25,6 +25,9 @@ databaseChangeLog:
                   constraints:
                     unique: false
                     nullable: false
+                    foreignKeyName: id_account
+                    referencse: accounts (account_id)
+                    deleteCascade: true
               - column:
                   name: date
                   type: TIMESTAMP

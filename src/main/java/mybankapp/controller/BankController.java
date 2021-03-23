@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,37 +26,25 @@ public class BankController {
     @PostMapping
     public ResponseEntity<String> addPerson(@RequestBody Person person) {
         log.info("addPerson through controller");
-        service.createPerson(person);
-        return ResponseEntity.ok(person.getUuid().toString());
+        return ResponseEntity.ok(service.createPerson(person).toString());
     }
 
     @GetMapping("/{uuid}")
     public ResponseEntity<PersonDTO> getPerson(@PathVariable UUID uuid) {
         log.info("getPerson through controller");
-        if (service.getPerson(uuid).isPresent())
-            return ResponseEntity.ok(PersonDTO.from(service.getPerson(uuid).get()));
-        else
-            return ResponseEntity.notFound().build();
+        return service.getPerson(uuid);
     }
 
     @GetMapping
     public ResponseEntity<List<PersonDTO>> getAllPersons() {
         log.info("getAllPersons through controller");
-        List<PersonDTO> result = service.getAllPersons()
-                .stream()
-                .map(PersonDTO::from)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(service.getAllPersons());
     }
 
     @PostMapping("/{uuid}")
     public ResponseEntity<CurrencyAccountDTO> addAccount(@RequestBody CurrencyAccount account, @PathVariable UUID uuid) {
         log.info("addAccount through controller");
-        if (service.getPerson(uuid).isPresent()) {
-            service.addAccount(account, uuid);
-            return ResponseEntity.ok(CurrencyAccountDTO.from(account));
-        } else
-            return ResponseEntity.notFound().build();
+        return service.addAccount(account, uuid);
     }
 
     @DeleteMapping("/{uuid}")
@@ -77,45 +64,24 @@ public class BankController {
     @GetMapping("/{uuid}/accounts")
     public ResponseEntity<List<CurrencyAccountDTO>> getPersonAccounts(@PathVariable UUID uuid) {
         log.info("getPersonAccounts through controller");
-        if (service.getPerson(uuid).isPresent()) {
-            List<CurrencyAccountDTO> result = service.getAllAccounts(uuid)
-                .stream()
-                .map(CurrencyAccountDTO::from)
-                .collect(Collectors.toList());
-            return ResponseEntity.ok(result);
-        } else
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.getAllAccounts(uuid));
     }
 
     @PutMapping("/{uuid}")
     public ResponseEntity<String> updatePerson(@RequestBody Person person, @PathVariable UUID uuid) {
         log.info("updatePerson through controller");
-        if (service.getPerson(uuid).isPresent()) {
-            Person newPerson = service.getPerson(uuid).get();
-            newPerson.setName(person.getName());
-            service.createPerson(newPerson);
-            return ResponseEntity.ok(newPerson.getUuid().toString());
-        } else
-            return ResponseEntity.notFound().build();
+        return service.updatePerson(person, uuid);
     }
 
     @PostMapping("/accounts/{accountId}")
-    public ResponseEntity<Long> addTransaction(@RequestBody Transaction transaction, @PathVariable Long accountId) {
+    public ResponseEntity<TransactionDTO> addTransaction(@RequestBody Transaction transaction, @PathVariable Long accountId) {
         log.info("addTransaction through controller");
-        if (service.getAccount(accountId).isPresent()) {
-            service.addTransaction(transaction, accountId);
-        return ResponseEntity.ok(TransactionDTO.from(transaction).getId());
-    } else
-        return ResponseEntity.notFound().build();
+        return service.addTransaction(transaction, accountId);
     }
 
     @GetMapping("/accounts/{accountId}/transactions")
     public ResponseEntity<List<TransactionDTO>> getAccountTransactions(@PathVariable Long accountId) {
         log.info("getAccountTransactions through controller");
-        List<TransactionDTO> result = service.getAccountTransactions(accountId)
-                .stream()
-                .map(TransactionDTO::from)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(service.getAccountTransactions(accountId));
     }
 }
