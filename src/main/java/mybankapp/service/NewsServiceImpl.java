@@ -3,11 +3,14 @@ package mybankapp.service;
 import lombok.RequiredArgsConstructor;
 import mybankapp.dao.NewsArticleDAO;
 import mybankapp.dao.PersonDAO;
+import mybankapp.dto.NewsArticleDTO;
 import mybankapp.model.NewsArticle;
 import mybankapp.model.Person;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +20,17 @@ public class NewsServiceImpl implements NewsService{
     private final PersonDAO personDAO;
 
     @Override
-    public void createNewsArticle(NewsArticle article) {
+    public NewsArticleDTO createNewsArticle(NewsArticle article) {
         newsArticleDAO.createNewsArticle(article);
+        return NewsArticleDTO.from(article);
     }
 
     @Override
-    public Optional<NewsArticle> findNewsArticle(long articleId) {
-        return newsArticleDAO.findNewsArticle(articleId);
+    public ResponseEntity<NewsArticleDTO> findNewsArticle(long articleId) {
+        if (newsArticleDAO.findNewsArticle(articleId).isPresent())
+            return ResponseEntity.ok(NewsArticleDTO.from(newsArticleDAO.findNewsArticle(articleId).get()));
+        else
+            return ResponseEntity.notFound().build();
     }
 
 
@@ -33,30 +40,34 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
-    public void watchArticleByPerson(UUID uuid, long articleId) {
+    public ResponseEntity watchArticleByPerson(UUID uuid, long articleId) {
         if (!personDAO.find(uuid).isPresent() ||
-                !newsArticleDAO.findNewsArticle(articleId).isPresent()) return;
+                !newsArticleDAO.findNewsArticle(articleId).isPresent())
+            return ResponseEntity.notFound().build();
         NewsArticle article = newsArticleDAO.findNewsArticle(articleId).get();
         Person person = personDAO.find(uuid).get();
         Set<Person> persons = article.getWhoWatched();
         persons.add(person);
         newsArticleDAO.createNewsArticle(article);
+        return ResponseEntity.ok().body(null);
     }
 
     @Override
-    public void unWatchArticleByPerson(UUID uuid, long articleId) {
+    public ResponseEntity unWatchArticleByPerson(UUID uuid, long articleId) {
+        if (!personDAO.find(uuid).isPresent() || !newsArticleDAO.findNewsArticle(articleId).isPresent())
+            return ResponseEntity.notFound().build();
         NewsArticle article = newsArticleDAO.findNewsArticle(articleId).get();
-        if (!personDAO.find(uuid).isPresent()) return;
         Person person = personDAO.find(uuid).get();
         Set<Person> persons = article.getWhoWatched();
         persons.remove(person);
         newsArticleDAO.createNewsArticle(article);
+        return ResponseEntity.ok().body(null);
     }
 
     @Override
-    public List<NewsArticle> getNewsfeed(UUID uuid, int numberOfNews) {
+    public ResponseEntity<List<NewsArticleDTO>> getNewsfeed(UUID uuid, int numberOfNews) {
         List<NewsArticle> list = new ArrayList<>();
-        if (!personDAO.find(uuid).isPresent()) return list;
+        if (!personDAO.find(uuid).isPresent()) return ResponseEntity.notFound().build();
         Person person = personDAO.find(uuid).get();
         List<NewsArticle> newsDB = newsArticleDAO.getNews();
         for (NewsArticle article : newsDB ) {
@@ -65,13 +76,17 @@ public class NewsServiceImpl implements NewsService{
                 list.add(article);
             if (list.size() >= numberOfNews) break;
         }
-        return list;
+        List<NewsArticleDTO> result = list
+                .stream()
+                .map(NewsArticleDTO::from)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 
     @Override
-    public List<NewsArticle> getArchive(UUID uuid, int numberOfNews) {
+    public ResponseEntity<List<NewsArticleDTO>> getArchive(UUID uuid, int numberOfNews) {
         List<NewsArticle> list = new ArrayList<>();
-        if (!personDAO.find(uuid).isPresent()) return list;
+        if (!personDAO.find(uuid).isPresent()) return ResponseEntity.notFound().build();
         Person person = personDAO.find(uuid).get();
         List<NewsArticle> news = newsArticleDAO.getNews();
         for (NewsArticle article : news) {
@@ -80,6 +95,10 @@ public class NewsServiceImpl implements NewsService{
                 list.add(article);
             if (list.size() >= numberOfNews) break;
         }
-        return list;
+        List<NewsArticleDTO> result = list
+                .stream()
+                .map(NewsArticleDTO::from)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 }
