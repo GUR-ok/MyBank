@@ -24,6 +24,11 @@ public class PersonDAOImpl implements PersonDAO{
     }
 
     @Override
+    public Optional<Person> findByName(String name) {
+        return personRepository.findByName(name);
+    }
+
+    @Override
     public UUID create(Person person) {
         personRepository.saveAndFlush(person);
         return person.getUuid();

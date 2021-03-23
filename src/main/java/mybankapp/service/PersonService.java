@@ -14,6 +14,9 @@ import java.util.UUID;
 
 public interface PersonService {
 
+    Person register(Person person);
+    Person getPersonByName(String name);
+
     UUID createPerson(Person person);
     ResponseEntity<PersonDTO> getPerson(UUID personUUID);
     List<PersonDTO> getAllPersons();

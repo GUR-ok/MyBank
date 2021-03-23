@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: gur
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: uuid
+                  type: UUID
+                  autoIncrement: false
+                  constraints:
+                    foreignKeyName: users_id
+                    referencse: users (uuid)
+                    deleteCascade: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  autoIncrement: false
+                  constraints:
+                    foreignKeyName: roles_id
+                    referencse: roles (role_id)
+                    deleteCascade: false

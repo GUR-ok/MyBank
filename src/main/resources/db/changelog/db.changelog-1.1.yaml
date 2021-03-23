@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: gur
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              name: password
+              type: VARCHAR(255)
+              constraints:
+                nullable: false

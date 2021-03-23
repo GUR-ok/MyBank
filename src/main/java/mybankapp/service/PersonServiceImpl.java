@@ -1,16 +1,20 @@
 package mybankapp.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mybankapp.dao.AccountDAO;
 import mybankapp.dao.PersonDAO;
+import mybankapp.dao.RoleDAO;
 import mybankapp.dao.TransactionDAO;
 import mybankapp.dto.CurrencyAccountDTO;
 import mybankapp.dto.PersonDTO;
 import mybankapp.dto.TransactionDTO;
 import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
+import mybankapp.model.Role;
 import mybankapp.model.Transaction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,11 +26,37 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PersonServiceImpl implements PersonService{
 
     private final PersonDAO personDAO;
     private final AccountDAO accountDAO;
     private final TransactionDAO transactionDAO;
+    private final RoleDAO roleDAO;
+   // private final BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public Person register(Person person) {
+        Role roleUser = roleDAO.findByName("ROLE_USER").get();
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(roleUser);
+
+        //person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRoles(userRoles);
+        personDAO.create(person);
+        log.info("User registered");
+        return person;
+    }
+
+    @Override
+    public Person getPersonByName(String name) {
+        return personDAO.findByName(name).get();
+        /*if (personDAO.findByName(name).isPresent()) {
+            PersonDTO dto = PersonDTO.from(personDAO.find(personUUID).get());
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();*/
+    }
 
     @Override
     public UUID createPerson(Person person){
