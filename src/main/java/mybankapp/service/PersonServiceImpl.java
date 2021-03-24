@@ -13,6 +13,8 @@ import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
 import mybankapp.model.Role;
 import mybankapp.model.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,15 @@ public class PersonServiceImpl implements PersonService{
     private final AccountDAO accountDAO;
     private final TransactionDAO transactionDAO;
     private final RoleDAO roleDAO;
-   // private final BCryptPasswordEncoder passwordEncoder;
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        BCryptPasswordEncoder bCryptpasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptpasswordEncoder;
+    }
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Person register(Person person) {
@@ -41,7 +51,7 @@ public class PersonServiceImpl implements PersonService{
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
 
-        //person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRoles(userRoles);
         personDAO.create(person);
         log.info("User registered");
@@ -51,11 +61,6 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public Person getPersonByName(String name) {
         return personDAO.findByName(name).get();
-        /*if (personDAO.findByName(name).isPresent()) {
-            PersonDTO dto = PersonDTO.from(personDAO.find(personUUID).get());
-            return ResponseEntity.ok(dto);
-        }
-        return ResponseEntity.notFound().build();*/
     }
 
     @Override

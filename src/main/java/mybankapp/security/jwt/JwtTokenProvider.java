@@ -4,17 +4,14 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import mybankapp.model.Role;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -31,13 +28,6 @@ public class JwtTokenProvider {
     private Long validityMilliseconds;
 
     private final UserDetailsService userDetailsService;
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptpasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptpasswordEncoder;
-    }
-
 
     @PostConstruct
     protected void init() {
@@ -65,7 +55,7 @@ public class JwtTokenProvider {
     }
 
     public String getUserName(String token){
-        return Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest req){
@@ -76,7 +66,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) throws JwtAuthenticationException {
+    public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 
@@ -91,8 +81,9 @@ public class JwtTokenProvider {
 
     private List<String> getRoleNames(List<Role> userRoles){
         List<String> result = new ArrayList<>();
-        userRoles.forEach(role ->
-                result.add(role.getName()));
+        userRoles.forEach(role -> {
+            result.add(role.getName());
+        });
         return result;
     }
 }

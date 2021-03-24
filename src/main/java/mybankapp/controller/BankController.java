@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bank")
+@RequestMapping("/admin/bank")
 @Slf4j
 public class BankController {
 

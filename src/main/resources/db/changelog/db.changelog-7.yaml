@@ -22,3 +22,25 @@ databaseChangeLog:
                     foreignKeyName: roles_id
                     referencse: roles (role_id)
                     deleteCascade: false
+  - changeSet:
+      id: 11
+      author: gur
+      changes:
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: uuid
+                  value: 70974a1d-d088-4a08-9b13-5b22361098ff
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: uuid
+                  value: 70974a1d-d088-4a08-9b13-5b22361098ff
+              - column:
+                  name: role_id
+                  value: 2

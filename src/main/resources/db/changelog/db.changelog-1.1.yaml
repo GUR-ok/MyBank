@@ -10,3 +10,19 @@ databaseChangeLog:
               type: VARCHAR(255)
               constraints:
                 nullable: false
+  - changeSet:
+      id: 10
+      author: gur
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: uuid
+                  value: 70974a1d-d088-4a08-9b13-5b22361098ff
+              - column:
+                  name: username
+                  value: Admin
+              - column:
+                  name: password
+                  value: $2y$12$cie.IMFKKzL3zdB1bvn/reMt/.olT.yQpSN7KZ/iJLzUQzfbcdWRq
