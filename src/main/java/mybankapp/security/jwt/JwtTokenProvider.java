@@ -2,6 +2,7 @@ package mybankapp.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mybankapp.model.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,14 +19,18 @@ import java.util.Date;
 import java.util.List;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.token.secret}")
     private String secret;
 
-    @Value("${jwt.token.expired}")
-    private Long validityMilliseconds;
+    @Value("${jwt.accesstoken.expired}")
+    private Long accessLife;
+
+    @Value("${jwt.refreshtoken.expired}")
+    private Long freshLife;
 
     private final UserDetailsService userDetailsService;
 
@@ -37,9 +42,29 @@ public class JwtTokenProvider {
     public String createToken(String userName, List<Role> userRoles){
         Claims claims = Jwts.claims().setSubject(userName);
         claims.put("roles", getRoleNames(userRoles));
-
+        // Помещение в токен флага isRefreshtoken = false с целью
+        // запрета использования токена для обновления токена
+        claims.put("isRefreshtoken",false);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityMilliseconds);
+        Date validity = new Date(now.getTime() + accessLife);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+    public String createRefreshToken(String userName, List<Role> userRoles){
+        Claims claims = Jwts.claims().setSubject(userName);
+        claims.put("roles", getRoleNames(userRoles));
+        // Помещение в токен флага isRefreshtoken = true с целью
+        // запрета использования токена для выполнения запросов,
+        // требующих авторизации
+        claims.put("isRefreshtoken",true);
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + freshLife);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -66,17 +91,24 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) {
-        try {
+    public boolean validateToken(String token) throws ExpiredJwtException{
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
-            if (claims.getBody().getExpiration().before(new Date())){
+            //Проверка токена на истекший срок действия или наличие флага isRefreshtoken в claims
+            if (claims.getBody().getExpiration().before(new Date()) || claims.getBody().get("isRefreshtoken",Boolean.class)){
+                log.info("Accesstoken validation fault");
                 return false;
             }
             return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT Token is expired or invalid");
+    }
+
+    public boolean validateRefreshToken(String token) throws ExpiredJwtException{
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        //Проверка токена на истекший срок действия или отсутствие флага isRefreshtoken в claims
+        if (claims.getBody().getExpiration().before(new Date()) || !claims.getBody().get("isRefreshtoken",Boolean.class)){
+            log.info("Refreshtoken validation fault");
+            return false;
         }
+        return true;
     }
 
     private List<String> getRoleNames(List<Role> userRoles){

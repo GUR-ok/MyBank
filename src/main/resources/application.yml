@@ -19,4 +19,7 @@ spring:
 jwt:
   token:
     secret: jwtsecure
-    expired: 3600000
+  accesstoken:
+    expired: 600000
+  refreshtoken:
+    expired: 172800000

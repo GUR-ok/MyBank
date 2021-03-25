@@ -25,4 +25,4 @@ databaseChangeLog:
                   value: Admin
               - column:
                   name: password
-                  value: $2y$12$cie.IMFKKzL3zdB1bvn/reMt/.olT.yQpSN7KZ/iJLzUQzfbcdWRq
+                  value: $2a$04$sjnqEP4QVRQKx4lgAC7sd.bqM7zPRcmhf86zaSrElvfXZZrliYzpC
