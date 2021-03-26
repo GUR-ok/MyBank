@@ -20,7 +20,7 @@ public class NewsController {
 
     private final NewsService service;
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<NewsArticleDTO> addNewsArticle(@RequestBody NewsArticle article) {
         log.info("addNewsArticle through controller");
         return ResponseEntity.ok(service.createNewsArticle(article));
@@ -38,7 +38,7 @@ public class NewsController {
         return service.watchArticleByPerson(uuid, id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity deleteNewsArticle(@PathVariable long id) {
         log.info("deleteNewsArticle through controller");
             service.deleteNewsArticle(id);

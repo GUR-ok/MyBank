@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: gur
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              name: password
+              type: VARCHAR(255)
+              constraints:
+                nullable: false
+  - changeSet:
+      id: 10
+      author: gur
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: uuid
+                  value: 70974a1d-d088-4a08-9b13-5b22361098ff
+              - column:
+                  name: username
+                  value: Admin
+              - column:
+                  name: password
+                  value: $2a$04$sjnqEP4QVRQKx4lgAC7sd.bqM7zPRcmhf86zaSrElvfXZZrliYzpC

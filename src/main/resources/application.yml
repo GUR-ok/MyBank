@@ -15,3 +15,11 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yml
+
+jwt:
+  token:
+    secret: jwtsecure
+  accesstoken:
+    expired: 600000
+  refreshtoken:
+    expired: 172800000

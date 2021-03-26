@@ -1,6 +1,5 @@
 package mybankapp.model;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +22,9 @@ public class Person {
     @Column(name = "username", nullable = false)
     private String name;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", orphanRemoval = true)
     private List<CurrencyAccount> accounts;
 
@@ -31,4 +33,10 @@ public class Person {
             joinColumns = @JoinColumn(name = "uuid"),
             inverseJoinColumns = @JoinColumn(name = "news_id"))
     private Set<NewsArticle> watchedNews = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "uuid"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 }

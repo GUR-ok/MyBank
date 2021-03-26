@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface PersonDAO {
 
     Optional<Person> find(UUID id);
+    Optional<Person> findByName(String name);
     UUID create(Person person);
     List<CurrencyAccount> getPersonAccounts(UUID id);
     List<Person> findAll();
