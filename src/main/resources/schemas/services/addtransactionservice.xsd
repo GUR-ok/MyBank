@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.mybankapp.org/addtransaction/wsdl"
+           targetNamespace="http://www.mybankapp.org/addtransaction/wsdl" elementFormDefault="qualified">
+
+    <xs:element name="addTransactionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+                <xs:element name="accountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addTransactionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="transactionDTO">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="date" type="xs:dateTime"/>
+            <xs:element name="amount" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>

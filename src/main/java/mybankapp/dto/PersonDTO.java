@@ -1,19 +1,27 @@
 package mybankapp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import mybankapp.model.Person;
 
+import javax.xml.bind.annotation.*;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlRootElement(name = "personDto")
+@XmlType(propOrder = { "uuid", "name"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDTO {
 
+    @XmlAttribute
     private UUID uuid;
+    @XmlElement
     private String name;
+    @XmlElement
+    @JsonIgnore
+    private String password;
 
     public static PersonDTO from(Person person) {
         PersonDTO dto = new PersonDTO();
@@ -26,6 +34,7 @@ public class PersonDTO {
         Person person = new Person();
         person.setUuid(this.uuid);
         person.setName(this.name);
+        person.setPassword(this.password);
         return person;
     }
 }

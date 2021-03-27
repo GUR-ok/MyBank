@@ -6,10 +6,19 @@ import mybankapp.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.xml.bind.annotation.*;
+
 @Data
 @NoArgsConstructor
+@XmlRootElement(name = "authenticationRequestDTO")
+@XmlType(propOrder = { "username", "password"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AuthenticationRequestDTO {
+
+    @XmlElement
     private String username;
+
+    @XmlElement
     private String password;
 
     @Autowired

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/deleteaccount/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/deleteaccount/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/deleteaccount/wsdl">
+
+            <xs:element name="deleteAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="accountId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteAccountResponse">
+            </xs:element>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="deleteAccountResponse">
+        <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountRequest">
+        <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DeleteAccountPort">
+        <wsdl:operation name="deleteAccount">
+            <wsdl:input message="tns:deleteAccountRequest" name="deleteAccountRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DeleteAccountPortSoap11" type="tns:DeleteAccountPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="deleteAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DeleteAccountPortService">
+        <wsdl:port binding="tns:DeleteAccountPortSoap11" name="DeleteAccountPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/addperson/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/addperson/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/addperson/wsdl">
+
+            <xs:element name="addPersonRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="personDTO" type="tns:personDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addPersonResponse">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36"/>
+                        <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:complexType name="personDTO">
+                <xs:sequence>
+                    <xs:element name="uuid">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="36"/>
+                                <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="addPersonResponse">
+        <wsdl:part element="sch:addPersonResponse" name="addPersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addPersonRequest">
+        <wsdl:part element="sch:addPersonRequest" name="addPersonRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="AddPersonPort">
+        <wsdl:operation name="addPerson">
+            <wsdl:input message="tns:addPersonRequest" name="addPersonRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addPersonResponse" name="addPersonResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AddPersonPortSoap11" type="tns:AddPersonPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="addPerson">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addPersonRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addPersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AddPersonPortService">
+        <wsdl:port binding="tns:AddPersonPortSoap11" name="AddPersonPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

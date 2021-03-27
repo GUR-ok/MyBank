@@ -6,15 +6,21 @@ import lombok.NoArgsConstructor;
 import mybankapp.model.Person;
 import mybankapp.model.Transaction;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlRootElement(name = "transactionDTO")
+@XmlType(propOrder = { "id", "date", "amount"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TransactionDTO {
-
+    @XmlAttribute
     private Long id;
+    @XmlElement
     private Date date;
+    @XmlElement
     private Double amount;
 
     public static TransactionDTO from(Transaction transaction) {

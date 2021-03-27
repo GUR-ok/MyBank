@@ -6,15 +6,26 @@ import lombok.NoArgsConstructor;
 import mybankapp.model.Currency;
 import mybankapp.model.CurrencyAccount;
 
+import javax.xml.bind.annotation.*;
 import java.util.UUID;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
+@XmlRootElement(name = "currencyAccountDTO")
+@XmlType(propOrder = { "id", "balance", "ownerUuid", "currency"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CurrencyAccountDTO {
 
+    @XmlAttribute
     private long id;
+
+    @XmlElement
     private double balance;
+
+    @XmlElement
     private UUID ownerUuid;
+
+    @XmlElement
     private Currency currency;
 
     public static CurrencyAccountDTO from(CurrencyAccount account) {

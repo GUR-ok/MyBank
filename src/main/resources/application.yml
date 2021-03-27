@@ -20,6 +20,6 @@ jwt:
   token:
     secret: jwtsecure
   accesstoken:
-    expired: 600000
+    expired: 6000000
   refreshtoken:
     expired: 172800000
