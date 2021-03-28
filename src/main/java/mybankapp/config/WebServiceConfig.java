@@ -28,7 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "getpersonSchema")
     public XsdSchema countriesSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/getpersonservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getpersonservice.xsd"));
     }
     @Bean(name = "getperson")
     public DefaultWsdl11Definition getpersonDefinition(@Qualifier("getpersonSchema") XsdSchema xsdSchema) {
@@ -42,7 +42,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "addpersonSchema")
     public XsdSchema addpersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/addpersonservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addpersonservice.xsd"));
     }
     @Bean(name = "addperson")
     public DefaultWsdl11Definition addpersonDefinition(@Qualifier("addpersonSchema") XsdSchema xsdSchema) {
@@ -56,7 +56,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "addtransactionSchema")
     public XsdSchema addtransactionSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/addtransactionservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addtransactionservice.xsd"));
     }
     @Bean(name = "addtransaction")
     public DefaultWsdl11Definition addtransactionDefinition(@Qualifier("addtransactionSchema") XsdSchema xsdSchema) {
@@ -70,7 +70,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "addaccountSchema")
     public XsdSchema addaccountSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/addaccountservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addaccountservice.xsd"));
     }
     @Bean(name = "addaccount")
     public DefaultWsdl11Definition addaccountDefinition(@Qualifier("addaccountSchema") XsdSchema xsdSchema) {
@@ -84,7 +84,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "deleteaccountSchema")
     public XsdSchema deleteaccountSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/deleteaccountservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/deleteaccountservice.xsd"));
     }
     @Bean(name = "deleteaccount")
     public DefaultWsdl11Definition deleteaccountDefinition(@Qualifier("deleteaccountSchema") XsdSchema xsdSchema) {
@@ -98,7 +98,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "deletepersonSchema")
     public XsdSchema deletepersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/deletepersonservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/deletepersonservice.xsd"));
     }
     @Bean(name = "deleteperson")
     public DefaultWsdl11Definition deletepersonDefinition(@Qualifier("deletepersonSchema") XsdSchema xsdSchema) {
@@ -112,7 +112,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "getaccounttransactionsSchema")
     public XsdSchema getaccounttransactionsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/getaccounttransactionsservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
     }
     @Bean(name = "getaccounttransactions")
     public DefaultWsdl11Definition getaccounttransactionsDefinition(@Qualifier("getaccounttransactionsSchema") XsdSchema xsdSchema) {
@@ -126,7 +126,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "getallpersonsSchema")
     public XsdSchema getallpersonsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/getaccounttransactionsservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
     }
     @Bean(name = "getallpersons")
     public DefaultWsdl11Definition getallpersonsDefinition(@Qualifier("getallpersonsSchema") XsdSchema xsdSchema) {
@@ -140,7 +140,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "getpersonaccountsSchema")
     public XsdSchema getpersonaccountsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/getaccounttransactionsservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
     }
     @Bean(name = "getpersonaccounts")
     public DefaultWsdl11Definition getpersonaccountsDefinition(@Qualifier("getpersonaccountsSchema") XsdSchema xsdSchema) {
@@ -154,7 +154,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "updatepersonSchema")
     public XsdSchema updatepersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/getaccounttransactionsservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
     }
     @Bean(name = "updateperson")
     public DefaultWsdl11Definition updatepersonDefinition(@Qualifier("updatepersonSchema") XsdSchema xsdSchema) {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.mybankapp.org/addnewsarticle/wsdl"
+           targetNamespace="http://www.mybankapp.org/addnewsarticle/wsdl" elementFormDefault="qualified">
+
+    <xs:element name="addNewsArticleRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addNewsArticleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="newsArticleDTO">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="shorttext" type="xs:string"/>
+            <xs:element name="fulltext" type="xs:string"/>
+            <xs:element name="linktoimg" type="xs:string"/>
+            <xs:element name="buttonname" type="xs:string"/>
+            <xs:element name="url" type="xs:anyURI"/>
+            <xs:element name="date" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

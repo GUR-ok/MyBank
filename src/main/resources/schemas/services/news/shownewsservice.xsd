@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.mybankapp.org/shownews/wsdl"
+           targetNamespace="http://www.mybankapp.org/shownews/wsdl" elementFormDefault="qualified">
+
+    <xs:element name="showNewsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="numberOfNews" type="xs:int"/>
+                <xs:element name="uuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="36" />
+                            <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="showNewsResponse" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="newsArticleDTO" minOccurs="0" maxOccurs="unbounded" type="tns:newsArticleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="newsArticleDTO">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="shorttext" type="xs:string"/>
+            <xs:element name="fulltext" type="xs:string"/>
+            <xs:element name="linktoimg" type="xs:string"/>
+            <xs:element name="buttonname" type="xs:string"/>
+            <xs:element name="url" type="xs:anyURI"/>
+            <xs:element name="date" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
