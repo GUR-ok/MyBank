@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/deletenewsarticle/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/deletenewsarticle/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/deletenewsarticle/wsdl">
+
+            <xs:element name="deleteNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteAccountResponse">
+            </xs:element>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="deleteNewsArticleRequest">
+        <wsdl:part element="sch:deleteNewsArticleRequest" name="deleteNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountResponse">
+        <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DeleteNewsArticlePort">
+        <wsdl:operation name="deleteNewsArticle">
+            <wsdl:input message="tns:deleteNewsArticleRequest" name="deleteNewsArticleRequest">
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DeleteNewsArticlePortSoap11" type="tns:DeleteNewsArticlePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="deleteNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="deleteAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DeleteNewsArticlePortService">
+        <wsdl:port binding="tns:DeleteNewsArticlePortSoap11" name="DeleteNewsArticlePortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

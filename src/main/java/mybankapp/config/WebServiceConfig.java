@@ -165,4 +165,102 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
+
+    @Bean(name = "addnewsarticleSchema")
+    public XsdSchema addnewsarticleSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/addnewsarticleservice.xsd"));
+    }
+    @Bean(name = "addnewsarticle")
+    public DefaultWsdl11Definition addnewsarticleDefinition(@Qualifier("addnewsarticleSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("AddNewsArticlePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "findnewsarticleSchema")
+    public XsdSchema findnewsarticleSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/findnewsarticleservice.xsd"));
+    }
+    @Bean(name = "findnewsarticle")
+    public DefaultWsdl11Definition findnewsarticleDefinition(@Qualifier("findnewsarticleSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("FindNewsArticlePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "watchnewsarticleSchema")
+    public XsdSchema watchnewsarticleSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/watchnewsarticleservice.xsd"));
+    }
+    @Bean(name = "watchnewsarticle")
+    public DefaultWsdl11Definition watchnewsarticleDefinition(@Qualifier("watchnewsarticleSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("WatchNewsArticlePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "deletenewsarticleSchema")
+    public XsdSchema deletenewsarticleSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/deletenewsarticleservice.xsd"));
+    }
+    @Bean(name = "deletenewsarticle")
+    public DefaultWsdl11Definition deletenewsarticleDefinition(@Qualifier("deletenewsarticleSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("DeleteNewsArticlePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "unwatchnewsarticleSchema")
+    public XsdSchema unwatchnewsarticleSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/unwatchnewsarticleservice.xsd"));
+    }
+    @Bean(name = "unwatchnewsarticle")
+    public DefaultWsdl11Definition unwatchnewsarticleDefinition(@Qualifier("unwatchnewsarticleSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("UnwatchNewsArticlePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "shownewsSchema")
+    public XsdSchema shownewsSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/shownewsservice.xsd"));
+    }
+    @Bean(name = "shownews")
+    public DefaultWsdl11Definition shownewsDefinition(@Qualifier("shownewsSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ShowNewsPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "showarchiveSchema")
+    public XsdSchema showarchiveSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/showarchiveservice.xsd"));
+    }
+    @Bean(name = "showarchive")
+    public DefaultWsdl11Definition showarchiveDefinition(@Qualifier("showarchiveSchema") XsdSchema xsdSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ShowArchivePort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setSchema(xsdSchema);
+        return wsdl11Definition;
+    }
 }

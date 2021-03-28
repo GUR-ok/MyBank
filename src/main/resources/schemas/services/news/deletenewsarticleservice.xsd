@@ -5,7 +5,7 @@
     <xs:element name="deleteNewsArticleRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="accountId" type="xs:long"/>
+                <xs:element name="newsId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

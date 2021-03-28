@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/findnewsarticle/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/findnewsarticle/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/findnewsarticle/wsdl">
+
+            <xs:element name="findNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="newsArticleDTO">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="title" type="xs:string"/>
+                    <xs:element name="shorttext" type="xs:string"/>
+                    <xs:element name="fulltext" type="xs:string"/>
+                    <xs:element name="linktoimg" type="xs:string"/>
+                    <xs:element name="buttonname" type="xs:string"/>
+                    <xs:element name="url" type="xs:anyURI"/>
+                    <xs:element name="date" type="xs:dateTime"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="findNewsArticleRequest">
+        <wsdl:part element="sch:findNewsArticleRequest" name="findNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findNewsArticleResponse">
+        <wsdl:part element="sch:findNewsArticleResponse" name="findNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="FindNewsArticlePort">
+        <wsdl:operation name="findNewsArticle">
+            <wsdl:input message="tns:findNewsArticleRequest" name="findNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findNewsArticleResponse" name="findNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FindNewsArticlePortSoap11" type="tns:FindNewsArticlePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="findNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FindNewsArticlePortService">
+        <wsdl:port binding="tns:FindNewsArticlePortSoap11" name="FindNewsArticlePortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

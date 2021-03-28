@@ -46,4 +46,17 @@ public class NewsArticleDTO {
         dto.setDate(article.getDate());
         return dto;
     }
+
+    public NewsArticle toArticle() {
+        NewsArticle article = new NewsArticle();
+        article.setId(this.id);
+        article.setTitle(this.title);
+        article.setShortDescription(this.shortText);
+        article.setFullDescription(this.fullText);
+        article.setLinkToImg(this.linkToImg);
+        article.setButtonName(this.buttonName);
+        article.setUrl(this.url);
+        article.setDate(this.date);
+        return article;
+    }
 }
