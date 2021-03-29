@@ -1,5 +1,6 @@
 package mybankapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mybankapp.model.Person;
@@ -22,6 +23,8 @@ public class AuthenticationRequestDTO {
     private String password;
 
     @Autowired
+    @XmlTransient
+    @JsonIgnore
     private BCryptPasswordEncoder passwordEncoder;
 
     public static AuthenticationRequestDTO from(Person person) {

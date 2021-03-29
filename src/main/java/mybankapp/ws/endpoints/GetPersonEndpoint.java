@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GetPersonEndpoint {
 
-    private static final String NAMESPACE_URI = "http://www.mybankapp.org/gen";
+    private static final String NAMESPACE_URI = "http://www.mybankapp.org/getperson/wsdl";
 
     private final PersonService personService;
 

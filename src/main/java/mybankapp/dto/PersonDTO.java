@@ -15,11 +15,11 @@ import java.util.UUID;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDTO {
 
-    @XmlAttribute
+    @XmlElement
     private UUID uuid;
     @XmlElement
     private String name;
-    @XmlElement
+    @XmlTransient
     @JsonIgnore
     private String password;
 

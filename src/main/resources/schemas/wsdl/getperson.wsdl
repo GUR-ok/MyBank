@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/getperson/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://www.mybankapp.org/getperson/wsdl"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://localhost:8080"
+                  targetNamespace="http://localhost:8080">
     <wsdl:types>
-        <xs:schema xmlns:tns="http://www.mybankapp.org/getperson/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/getperson/wsdl">
+        <xs:schema xmlns:tns="http://www.mybankapp.org/getperson/wsdl"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   elementFormDefault="qualified"
+                   targetNamespace="http://www.mybankapp.org/getperson/wsdl">
 
             <xs:element name="getPersonRequest">
                 <xs:complexType>
@@ -10,8 +17,7 @@
                             <xs:simpleType>
                                 <xs:restriction base="xs:string">
                                     <xs:maxLength value="36"/>
-                                    <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
-                                </xs:restriction>
+                                    <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
                     </xs:sequence>
@@ -32,7 +38,7 @@
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
                                 <xs:maxLength value="36"/>
-                                <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                                <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:element>
@@ -42,12 +48,12 @@
 
         </xs:schema>
     </wsdl:types>
-    <wsdl:message name="getPersonRequest">
-        <wsdl:part element="sch:getPersonRequest" name="getPersonRequest">
-        </wsdl:part>
-    </wsdl:message>
     <wsdl:message name="getPersonResponse">
         <wsdl:part element="sch:getPersonResponse" name="getPersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPersonRequest">
+        <wsdl:part element="sch:getPersonRequest" name="getPersonRequest">
         </wsdl:part>
     </wsdl:message>
     <wsdl:portType name="GetPersonPort">

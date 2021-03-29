@@ -27,7 +27,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     }
 
     @Bean(name = "getpersonSchema")
-    public XsdSchema countriesSchema() {
+    public XsdSchema getpersonSchema() {
         return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getpersonservice.xsd"));
     }
     @Bean(name = "getperson")
@@ -35,7 +35,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetPersonPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -49,7 +49,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("AddPersonPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -63,7 +63,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("AddTransactionPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -77,7 +77,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("AddAccountPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -91,7 +91,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("DeleteAccountPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -105,7 +105,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("DeletePersonPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -119,7 +119,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetAccountTransactionsPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -133,7 +133,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetAllPersonsPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -147,7 +147,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("GetpersonAccountsPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -161,7 +161,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("UpdatePersonPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -175,7 +175,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("AddNewsArticlePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -189,7 +189,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("FindNewsArticlePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -203,7 +203,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("WatchNewsArticlePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -217,7 +217,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("DeleteNewsArticlePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -231,7 +231,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("UnwatchNewsArticlePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -245,7 +245,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ShowNewsPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
@@ -259,7 +259,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ShowArchivePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.mybankapp.org/gen");
+        wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
