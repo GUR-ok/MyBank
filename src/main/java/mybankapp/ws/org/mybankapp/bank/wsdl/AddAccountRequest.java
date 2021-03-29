@@ -9,6 +9,7 @@
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
 import mybankapp.dto.CurrencyAccountDTO;
+import mybankapp.model.Currency;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,39 +40,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "currencyAccountDTO",
-    "uuid"
+    "balance",
+    "currency",
+        "uuid"
 })
 @XmlRootElement(name = "addAccountRequest")
 public class AddAccountRequest {
 
     @XmlElement(required = true)
-    protected CurrencyAccountDTO currencyAccountDTO;
+    protected Double balance;
+    @XmlElement(required = true)
+    protected Currency currency;
     @XmlElement(required = true)
     protected String uuid;
 
-    /**
-     * Gets the value of the currencyAccountDTO property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CurrencyAccountDTO }
-     *     
-     */
-    public CurrencyAccountDTO getCurrencyAccountDTO() {
-        return currencyAccountDTO;
+    public Double getBalance() {
+        return balance;
     }
 
-    /**
-     * Sets the value of the currencyAccountDTO property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CurrencyAccountDTO }
-     *     
-     */
-    public void setCurrencyAccountDTO(CurrencyAccountDTO value) {
-        this.currencyAccountDTO = value;
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     /**

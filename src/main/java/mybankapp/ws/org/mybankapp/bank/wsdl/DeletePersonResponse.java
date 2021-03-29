@@ -6,11 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "addPersonResponse")
-public class AddPersonResponse {
-
-    @XmlElement(required = true)
-    protected String uuid;
+@XmlRootElement(name = "deletePersonResponse")
+public class DeletePersonResponse {
 
     public String getUuid() {
         return uuid;
@@ -19,4 +16,7 @@ public class AddPersonResponse {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    @XmlElement(required = true)
+    protected String uuid;
 }

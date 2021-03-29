@@ -13,11 +13,6 @@ import java.util.*;
 @Table(name = "users")
 public class Person {
 
-    public Person(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
-
     @Id
     @GeneratedValue(generator = "hibernate-uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -44,4 +39,9 @@ public class Person {
             joinColumns = @JoinColumn(name = "uuid"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
+    public Person(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

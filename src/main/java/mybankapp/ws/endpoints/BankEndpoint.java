@@ -1,7 +1,9 @@
 package mybankapp.ws.endpoints;
 
 import lombok.RequiredArgsConstructor;
+import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
+import mybankapp.model.Transaction;
 import mybankapp.service.PersonService;
 
 import mybankapp.ws.org.mybankapp.bank.wsdl.*;
@@ -48,7 +50,7 @@ public class BankEndpoint {
     @ResponsePayload
     public AddAccountResponse addAccount(@RequestPayload AddAccountRequest request) {
         AddAccountResponse response = new AddAccountResponse();
-        response.setCurrencyAccountDTO(personService.addAccount(request.getCurrencyAccountDTO().toCurrencyAccount(),UUID.fromString(request.getUuid())).getBody());
+        response.setCurrencyAccountDTO(personService.addAccount(new CurrencyAccount(request.getCurrency(),request.getBalance()), UUID.fromString(request.getUuid())).getBody());
         return response;
     }
 
@@ -62,7 +64,7 @@ public class BankEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart =  "getAccountTransactionsRequest")
     @ResponsePayload
-    public GetAccountTransactionsResponse getPersonAccounts(@RequestPayload GetAccountTransactionsRequest request) {
+    public GetAccountTransactionsResponse getAccountTransactions(@RequestPayload GetAccountTransactionsRequest request) {
         GetAccountTransactionsResponse response = new  GetAccountTransactionsResponse();
         response.setTransactionDTO(personService.getAccountTransactions(request.getAccountId()));
         return response;
@@ -70,29 +72,35 @@ public class BankEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAccountRequest")
     @ResponsePayload
-    public Long deleteAccount(@RequestPayload DeleteAccountRequest request) {
+    public DeleteAccountResponse deleteAccount(@RequestPayload DeleteAccountRequest request) {
+        DeleteAccountResponse response = new DeleteAccountResponse();
+        response.setAccountId(request.getAccountId());
         personService.deleteAccount(request.getAccountId());
-        return request.getAccountId();
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deletePersonRequest")
     @ResponsePayload
-    public String deletePerson(@RequestPayload DeletePersonRequest request) {
+    public DeletePersonResponse deletePerson(@RequestPayload DeletePersonRequest request) {
+        DeletePersonResponse response = new DeletePersonResponse();
+        response.setUuid(request.getUuid());
         personService.deletePerson(UUID.fromString(request.getUuid()));
-        return request.getUuid();
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updatePersonRequest")
     @ResponsePayload
-    public String updatePerson(@RequestPayload UpdatePersonRequest request) {
-        return personService.updatePerson(request.getPersonDTO().toPerson(), UUID.fromString(request.getUuid())).getBody();
+    public UpdatePersonResponse updatePerson(@RequestPayload UpdatePersonRequest request) {
+        UpdatePersonResponse response = new UpdatePersonResponse();
+        response.setUuid(personService.updatePerson(new Person(request.getName(),request.getPassword()), UUID.fromString(request.getUuid())).getBody());
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addTransactionRequest")
     @ResponsePayload
     public AddTransactionResponse addTransaction(@RequestPayload AddTransactionRequest request) {
         AddTransactionResponse response = new AddTransactionResponse();
-        response.setTransactionDTO(personService.addTransaction(request.getTransactionDTO().toTransaction(), request.getAccountId()).getBody());
+        response.setTransactionDTO(personService.addTransaction(new Transaction(request.getAmount()), request.getAccountId()).getBody());
         return response;
     }
 }

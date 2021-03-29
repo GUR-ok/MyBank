@@ -13,6 +13,7 @@ import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
 import mybankapp.model.Role;
 import mybankapp.model.Transaction;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -94,7 +95,7 @@ public class PersonServiceImpl implements PersonService{
     public ResponseEntity<CurrencyAccountDTO> addAccount(CurrencyAccount account, UUID personUUID) {
         Optional<Person> optionalPerson = personDAO.find(personUUID);
         if (optionalPerson.isPresent()) {
-            optionalPerson.get().getAccounts().add(account);
+            //optionalPerson.get().getAccounts().add(account);
             account.setOwner(optionalPerson.get());
             accountDAO.createAccount(account);
             return ResponseEntity.ok(CurrencyAccountDTO.from(account));
@@ -108,6 +109,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public List<CurrencyAccountDTO> getAllAccounts(UUID personUUID) {
         List<CurrencyAccountDTO> result = new ArrayList<>();
         if (personDAO.find(personUUID).isPresent()) {
@@ -120,6 +122,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public List<TransactionDTO> getAccountTransactions(long accountId) {
         List<TransactionDTO> result = new ArrayList<>();
         if (accountDAO.findAccount(accountId).isPresent()) {
@@ -163,6 +166,7 @@ public class PersonServiceImpl implements PersonService{
         if (optionalPerson.isPresent()) {
             Person newPerson = optionalPerson.get();
             newPerson.setName(person.getName());
+            newPerson.setPassword(passwordEncoder.encode(person.getPassword()));
             personDAO.create(newPerson);
             return ResponseEntity.ok("Person " + uuid.toString() + " updated");
         }

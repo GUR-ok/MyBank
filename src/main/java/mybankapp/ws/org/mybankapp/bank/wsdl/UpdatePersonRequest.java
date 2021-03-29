@@ -39,39 +39,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "personDTO",
-    "uuid"
+        "uuid",
+        "name",
+        "password"
 })
 @XmlRootElement(name = "updatePersonRequest")
 public class UpdatePersonRequest {
 
     @XmlElement(required = true)
-    protected PersonDTO personDTO;
-    @XmlElement(required = true)
     protected String uuid;
+    @XmlElement(required = true)
+    protected String name;
+    @XmlElement(required = true)
+    protected String password;
 
-    /**
-     * Gets the value of the personDTO property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PersonDTO }
-     *     
-     */
-    public PersonDTO getPersonDTO() {
-        return personDTO;
+    public String getName() {
+        return name;
     }
 
-    /**
-     * Sets the value of the personDTO property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PersonDTO }
-     *     
-     */
-    public void setPersonDTO(PersonDTO value) {
-        this.personDTO = value;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

@@ -56,7 +56,16 @@
     <xs:element name="addAccountRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+                <xs:element name="balance" type="xs:double"/>
+                <xs:element name="currency">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="usd"/>
+                            <xs:enumeration value="eur"/>
+                            <xs:enumeration value="rub"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="uuid" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -140,7 +149,8 @@
     <xs:element name="updatePersonRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="personDTO" type="tns:personDTO"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
                 <xs:element name="uuid" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -158,7 +168,7 @@
     <xs:element name="addTransactionRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+                <xs:element name="amount" type="xs:double"/>
                 <xs:element name="accountId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>

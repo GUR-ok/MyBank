@@ -39,38 +39,23 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "transactionDTO",
+    "amount",
     "accountId"
 })
 @XmlRootElement(name = "addTransactionRequest")
 public class AddTransactionRequest {
 
     @XmlElement(required = true)
-    protected TransactionDTO transactionDTO;
+    protected double amount;
+    @XmlElement(required = true)
     protected long accountId;
 
-    /**
-     * Gets the value of the transactionDTO property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link TransactionDTO }
-     *     
-     */
-    public TransactionDTO getTransactionDTO() {
-        return transactionDTO;
+    public double getAmount() {
+        return amount;
     }
 
-    /**
-     * Sets the value of the transactionDTO property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TransactionDTO }
-     *     
-     */
-    public void setTransactionDTO(TransactionDTO value) {
-        this.transactionDTO = value;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     /**

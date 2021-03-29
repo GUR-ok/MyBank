@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@XmlRootElement(name = "personDto")
+@XmlRootElement(name = "personDTO")
 @XmlType(propOrder = { "uuid", "name"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDTO {

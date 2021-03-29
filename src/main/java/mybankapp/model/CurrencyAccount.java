@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,4 +33,10 @@ public class CurrencyAccount {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     private List<Transaction> transactions;
+
+    public CurrencyAccount(Currency currency, double balance) {
+        this.currency = currency;
+        this.balance = balance;
+        this.transactions = new ArrayList<>();
+    }
 }
