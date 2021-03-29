@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.mybankapp.org/bank/wsdl"
+           targetNamespace="http://www.mybankapp.org/bank/wsdl" elementFormDefault="qualified">
+
+    <xs:element name="addPersonRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addPersonResponse">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="36" />
+                <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="getPersonRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="36" />
+                            <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />                 </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPersonResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="personDTO" type="tns:personDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllPersonsRequest">
+    </xs:element>
+
+    <xs:element name="getAllPersonsResponse" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="personDTO" minOccurs="0" maxOccurs="unbounded" type="tns:personDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPersonAccountsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="36" />
+                            <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />                 </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPersonAccountsResponse" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="currencyAccountDTO" minOccurs="0" maxOccurs="unbounded" type="tns:currencyAccountDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAccountTransactionsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAccountTransactionsResponse" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionDTO" minOccurs="0" maxOccurs="unbounded" type="tns:transactionDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAccountResponse" >
+    </xs:element>
+
+    <xs:element name="deletePersonRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="36" />
+                            <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deletePersonResponse" >
+    </xs:element>
+
+    <xs:element name="updatePersonRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="personDTO" type="tns:personDTO"/>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updatePersonResponse">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="36" />
+                <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="addTransactionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+                <xs:element name="accountId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addTransactionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="personDTO">
+        <xs:sequence>
+            <xs:element name="uuid">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36" />
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="currencyAccountDTO">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="balance" type="xs:double"/>
+            <xs:element name="owneruuid">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36" />
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="currency">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="usd"/>
+                        <xs:enumeration value="eur"/>
+                        <xs:enumeration value="rub"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="transactionDTO">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="date" type="xs:dateTime"/>
+            <xs:element name="amount" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

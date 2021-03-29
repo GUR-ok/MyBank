@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://www.mybankapp.org/auth/wsdl"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://localhost:8080"
+                  targetNamespace="http://localhost:8080">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/auth/wsdl"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   elementFormDefault="qualified"
+                   targetNamespace="http://www.mybankapp.org/auth/wsdl">
+
+            <xs:element name="loginRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="transactionDTO" type="tns:authenticationRequestDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="loginResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="username" type="xs:string"/>
+                        <xs:element name="AccessToken" type="xs:string"/>
+                        <xs:element name="RefreshToken" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="refreshRequest">
+            </xs:element>
+
+            <xs:element name="refreshResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="username" type="xs:string"/>
+                        <xs:element name="NewAccessToken" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="authenticationRequestDTO">
+                <xs:sequence>
+                    <xs:element name="username" type="xs:string"/>
+                    <xs:element name="password" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="loginRequest">
+        <wsdl:part element="sch:loginRequest" name="loginRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="refreshResponse">
+        <wsdl:part element="sch:refreshResponse" name="refreshResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="loginResponse">
+        <wsdl:part element="sch:loginResponse" name="loginResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="refreshRequest">
+        <wsdl:part element="sch:refreshRequest" name="refreshRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="AuthenticationPort">
+        <wsdl:operation name="login">
+            <wsdl:input message="tns:loginRequest" name="loginRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:loginResponse" name="loginResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="refresh">
+            <wsdl:input message="tns:refreshRequest" name="refreshRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:refreshResponse" name="refreshResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AuthenticationPortSoap11" type="tns:AuthenticationPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="login">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="loginRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="loginResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="refresh">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="refreshRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="refreshResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AuthenticationPortService">
+        <wsdl:port binding="tns:AuthenticationPortSoap11" name="AuthenticationPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

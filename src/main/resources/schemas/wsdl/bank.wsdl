@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://www.mybankapp.org/bank/wsdl"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://localhost:8080"
+                  targetNamespace="http://localhost:8080">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/bank/wsdl"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   elementFormDefault="qualified"
+                   targetNamespace="http://www.mybankapp.org/bank/wsdl">
+
+            <xs:element name="addPersonRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
+                        <xs:element name="password" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addPersonResponse">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36"/>
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="getPersonRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>                 </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getPersonResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="personDTO" type="tns:personDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getAllPersonsRequest">
+            </xs:element>
+
+            <xs:element name="getAllPersonsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="personDTO" type="tns:personDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+                        <xs:element name="uuid" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addAccountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getPersonAccountsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>                 </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getPersonAccountsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="currencyAccountDTO" type="tns:currencyAccountDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getAccountTransactionsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="accountId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getAccountTransactionsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="transactionDTO" type="tns:transactionDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="accountId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteAccountResponse">
+            </xs:element>
+
+            <xs:element name="deletePersonRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deletePersonResponse">
+            </xs:element>
+
+            <xs:element name="updatePersonRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="personDTO" type="tns:personDTO"/>
+                        <xs:element name="uuid" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="updatePersonResponse">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36"/>
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="addTransactionRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+                        <xs:element name="accountId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addTransactionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="transactionDTO" type="tns:transactionDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="personDTO">
+                <xs:sequence>
+                    <xs:element name="uuid">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="36"/>
+                                <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="currencyAccountDTO">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="balance" type="xs:double"/>
+                    <xs:element name="owneruuid">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="36"/>
+                                <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="currency">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="usd"/>
+                                <xs:enumeration value="eur"/>
+                                <xs:enumeration value="rub"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="transactionDTO">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="date" type="xs:dateTime"/>
+                    <xs:element name="amount" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getPersonAccountsResponse">
+        <wsdl:part element="sch:getPersonAccountsResponse" name="getPersonAccountsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addPersonRequest">
+        <wsdl:part element="sch:addPersonRequest" name="addPersonRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPersonResponse">
+        <wsdl:part element="sch:getPersonResponse" name="getPersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPersonRequest">
+        <wsdl:part element="sch:getPersonRequest" name="getPersonRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updatePersonResponse">
+        <wsdl:part element="sch:updatePersonResponse" name="updatePersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addTransactionResponse">
+        <wsdl:part element="sch:addTransactionResponse" name="addTransactionResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deletePersonResponse">
+        <wsdl:part element="sch:deletePersonResponse" name="deletePersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addAccountResponse">
+        <wsdl:part element="sch:addAccountResponse" name="addAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAccountTransactionsResponse">
+        <wsdl:part element="sch:getAccountTransactionsResponse" name="getAccountTransactionsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deletePersonRequest">
+        <wsdl:part element="sch:deletePersonRequest" name="deletePersonRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAccountTransactionsRequest">
+        <wsdl:part element="sch:getAccountTransactionsRequest" name="getAccountTransactionsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountRequest">
+        <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addPersonResponse">
+        <wsdl:part element="sch:addPersonResponse" name="addPersonResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountResponse">
+        <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllPersonsResponse">
+        <wsdl:part element="sch:getAllPersonsResponse" name="getAllPersonsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPersonAccountsRequest">
+        <wsdl:part element="sch:getPersonAccountsRequest" name="getPersonAccountsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updatePersonRequest">
+        <wsdl:part element="sch:updatePersonRequest" name="updatePersonRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addAccountRequest">
+        <wsdl:part element="sch:addAccountRequest" name="addAccountRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllPersonsRequest">
+        <wsdl:part element="sch:getAllPersonsRequest" name="getAllPersonsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addTransactionRequest">
+        <wsdl:part element="sch:addTransactionRequest" name="addTransactionRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="BankPort">
+        <wsdl:operation name="getPersonAccounts">
+            <wsdl:input message="tns:getPersonAccountsRequest" name="getPersonAccountsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getPersonAccountsResponse" name="getPersonAccountsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addPerson">
+            <wsdl:input message="tns:addPersonRequest" name="addPersonRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addPersonResponse" name="addPersonResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getPerson">
+            <wsdl:input message="tns:getPersonRequest" name="getPersonRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getPersonResponse" name="getPersonResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updatePerson">
+            <wsdl:input message="tns:updatePersonRequest" name="updatePersonRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:updatePersonResponse" name="updatePersonResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addTransaction">
+            <wsdl:input message="tns:addTransactionRequest" name="addTransactionRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addTransactionResponse" name="addTransactionResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deletePerson">
+            <wsdl:input message="tns:deletePersonRequest" name="deletePersonRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deletePersonResponse" name="deletePersonResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addAccount">
+            <wsdl:input message="tns:addAccountRequest" name="addAccountRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addAccountResponse" name="addAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAccountTransactions">
+            <wsdl:input message="tns:getAccountTransactionsRequest" name="getAccountTransactionsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getAccountTransactionsResponse" name="getAccountTransactionsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <wsdl:input message="tns:deleteAccountRequest" name="deleteAccountRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllPersons">
+            <wsdl:input message="tns:getAllPersonsRequest" name="getAllPersonsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getAllPersonsResponse" name="getAllPersonsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BankPortSoap11" type="tns:BankPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getPersonAccounts">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getPersonAccountsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getPersonAccountsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addPerson">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addPersonRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addPersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getPerson">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getPersonRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getPersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updatePerson">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updatePersonRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updatePersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addTransaction">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addTransactionRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addTransactionResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deletePerson">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deletePersonRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deletePersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAccountTransactions">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getAccountTransactionsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getAccountTransactionsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllPersons">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getAllPersonsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getAllPersonsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="BankPortService">
+        <wsdl:port binding="tns:BankPortSoap11" name="BankPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

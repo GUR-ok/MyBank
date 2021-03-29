@@ -13,6 +13,11 @@ import java.util.*;
 @Table(name = "users")
 public class Person {
 
+    public Person(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue(generator = "hibernate-uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

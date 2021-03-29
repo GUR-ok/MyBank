@@ -26,241 +26,46 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    @Bean(name = "getpersonSchema")
+    @Bean(name = "bankSchema")
     public XsdSchema getpersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getpersonservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bankservice.xsd"));
     }
-    @Bean(name = "getperson")
-    public DefaultWsdl11Definition getpersonDefinition(@Qualifier("getpersonSchema") XsdSchema xsdSchema) {
+    @Bean(name = "bank")
+    public DefaultWsdl11Definition getpersonDefinition(@Qualifier("bankSchema") XsdSchema xsdSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("GetPersonPort");
+        wsdl11Definition.setPortTypeName("BankPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
 
-    @Bean(name = "addpersonSchema")
+    @Bean(name = "newsSchema")
     public XsdSchema addpersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addpersonservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/newsservice.xsd"));
     }
-    @Bean(name = "addperson")
-    public DefaultWsdl11Definition addpersonDefinition(@Qualifier("addpersonSchema") XsdSchema xsdSchema) {
+    @Bean(name = "news")
+    public DefaultWsdl11Definition addpersonDefinition(@Qualifier("newsSchema") XsdSchema xsdSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("AddPersonPort");
+        wsdl11Definition.setPortTypeName("NewsPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
 
-    @Bean(name = "addtransactionSchema")
+    @Bean(name = "authenticationSchema")
     public XsdSchema addtransactionSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addtransactionservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/authservice.xsd"));
     }
-    @Bean(name = "addtransaction")
-    public DefaultWsdl11Definition addtransactionDefinition(@Qualifier("addtransactionSchema") XsdSchema xsdSchema) {
+    @Bean(name = "authentication")
+    public DefaultWsdl11Definition addtransactionDefinition(@Qualifier("authenticationSchema") XsdSchema xsdSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("AddTransactionPort");
+        wsdl11Definition.setPortTypeName("AuthenticationPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
 
-    @Bean(name = "addaccountSchema")
-    public XsdSchema addaccountSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/addaccountservice.xsd"));
-    }
-    @Bean(name = "addaccount")
-    public DefaultWsdl11Definition addaccountDefinition(@Qualifier("addaccountSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("AddAccountPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "deleteaccountSchema")
-    public XsdSchema deleteaccountSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/deleteaccountservice.xsd"));
-    }
-    @Bean(name = "deleteaccount")
-    public DefaultWsdl11Definition deleteaccountDefinition(@Qualifier("deleteaccountSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("DeleteAccountPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "deletepersonSchema")
-    public XsdSchema deletepersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/deletepersonservice.xsd"));
-    }
-    @Bean(name = "deleteperson")
-    public DefaultWsdl11Definition deletepersonDefinition(@Qualifier("deletepersonSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("DeletePersonPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "getaccounttransactionsSchema")
-    public XsdSchema getaccounttransactionsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
-    }
-    @Bean(name = "getaccounttransactions")
-    public DefaultWsdl11Definition getaccounttransactionsDefinition(@Qualifier("getaccounttransactionsSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("GetAccountTransactionsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "getallpersonsSchema")
-    public XsdSchema getallpersonsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getallpersonsservice.xsd"));
-    }
-    @Bean(name = "getallpersons")
-    public DefaultWsdl11Definition getallpersonsDefinition(@Qualifier("getallpersonsSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("GetAllPersonsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "getpersonaccountsSchema")
-    public XsdSchema getpersonaccountsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
-    }
-    @Bean(name = "getpersonaccounts")
-    public DefaultWsdl11Definition getpersonaccountsDefinition(@Qualifier("getpersonaccountsSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("GetpersonAccountsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "updatepersonSchema")
-    public XsdSchema updatepersonSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
-    }
-    @Bean(name = "updateperson")
-    public DefaultWsdl11Definition updatepersonDefinition(@Qualifier("updatepersonSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("UpdatePersonPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "addnewsarticleSchema")
-    public XsdSchema addnewsarticleSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/addnewsarticleservice.xsd"));
-    }
-    @Bean(name = "addnewsarticle")
-    public DefaultWsdl11Definition addnewsarticleDefinition(@Qualifier("addnewsarticleSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("AddNewsArticlePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "findnewsarticleSchema")
-    public XsdSchema findnewsarticleSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/findnewsarticleservice.xsd"));
-    }
-    @Bean(name = "findnewsarticle")
-    public DefaultWsdl11Definition findnewsarticleDefinition(@Qualifier("findnewsarticleSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("FindNewsArticlePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "watchnewsarticleSchema")
-    public XsdSchema watchnewsarticleSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/watchnewsarticleservice.xsd"));
-    }
-    @Bean(name = "watchnewsarticle")
-    public DefaultWsdl11Definition watchnewsarticleDefinition(@Qualifier("watchnewsarticleSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("WatchNewsArticlePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "deletenewsarticleSchema")
-    public XsdSchema deletenewsarticleSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/deletenewsarticleservice.xsd"));
-    }
-    @Bean(name = "deletenewsarticle")
-    public DefaultWsdl11Definition deletenewsarticleDefinition(@Qualifier("deletenewsarticleSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("DeleteNewsArticlePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "unwatchnewsarticleSchema")
-    public XsdSchema unwatchnewsarticleSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/unwatchnewsarticleservice.xsd"));
-    }
-    @Bean(name = "unwatchnewsarticle")
-    public DefaultWsdl11Definition unwatchnewsarticleDefinition(@Qualifier("unwatchnewsarticleSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("UnwatchNewsArticlePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "shownewsSchema")
-    public XsdSchema shownewsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/shownewsservice.xsd"));
-    }
-    @Bean(name = "shownews")
-    public DefaultWsdl11Definition shownewsDefinition(@Qualifier("shownewsSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("ShowNewsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
-
-    @Bean(name = "showarchiveSchema")
-    public XsdSchema showarchiveSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/news/showarchiveservice.xsd"));
-    }
-    @Bean(name = "showarchive")
-    public DefaultWsdl11Definition showarchiveDefinition(@Qualifier("showarchiveSchema") XsdSchema xsdSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("ShowArchivePort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8080");
-        wsdl11Definition.setSchema(xsdSchema);
-        return wsdl11Definition;
-    }
 }

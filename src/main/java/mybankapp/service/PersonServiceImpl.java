@@ -50,7 +50,6 @@ public class PersonServiceImpl implements PersonService{
         Role roleUser = roleDAO.findByName("ROLE_USER").get();
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
-
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRoles(userRoles);
         personDAO.create(person);
@@ -65,6 +64,11 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public UUID createPerson(Person person){
+        Role roleUser = roleDAO.findByName("ROLE_USER").get();
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(roleUser);
+        person.setRoles(userRoles);
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
         return personDAO.create(person);
     }
 
