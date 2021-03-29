@@ -126,7 +126,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean(name = "getallpersonsSchema")
     public XsdSchema getallpersonsSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getaccounttransactionsservice.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schemas/services/bank/getallpersonsservice.xsd"));
     }
     @Bean(name = "getallpersons")
     public DefaultWsdl11Definition getallpersonsDefinition(@Qualifier("getallpersonsSchema") XsdSchema xsdSchema) {

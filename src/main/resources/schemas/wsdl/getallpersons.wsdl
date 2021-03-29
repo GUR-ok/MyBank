@@ -1,59 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/getaccounttransactions/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/getallpersons/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mybankapp.org/gen" targetNamespace="http://www.mybankapp.org/gen">
     <wsdl:types>
-        <xs:schema xmlns:tns="http://www.mybankapp.org/getaccounttransactions/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/getaccounttransactions/wsdl">
+        <xs:schema xmlns:tns="http://www.mybankapp.org/getallpersons/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/getallpersons/wsdl">
 
-            <xs:element name="getAccountTransactionsRequest">
+            <xs:element name="getAllPersonRequest">
+            </xs:element>
+
+            <xs:element name="getAllPersonResponse">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="accountId" type="xs:long"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="personDTO" type="tns:personDTO"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="getAccountTransactionsResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="0" name="transactionDTO" type="tns:transactionDTO"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-
-            <xs:complexType name="transactionDTO">
+            <xs:complexType name="personDTO">
                 <xs:sequence>
-                    <xs:element name="id" type="xs:long"/>
-                    <xs:element name="date" type="xs:dateTime"/>
-                    <xs:element name="amount" type="xs:double"/>
+                    <xs:element name="uuid">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="36"/>
+                                <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="name" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
 
-
         </xs:schema>
     </wsdl:types>
-    <wsdl:message name="getAccountTransactionsResponse">
-        <wsdl:part element="sch:getAccountTransactionsResponse" name="getAccountTransactionsResponse">
+    <wsdl:message name="getAllPersonRequest">
+        <wsdl:part element="sch:getAllPersonRequest" name="getAllPersonRequest">
         </wsdl:part>
     </wsdl:message>
-    <wsdl:message name="getAccountTransactionsRequest">
-        <wsdl:part element="sch:getAccountTransactionsRequest" name="getAccountTransactionsRequest">
+    <wsdl:message name="getAllPersonResponse">
+        <wsdl:part element="sch:getAllPersonResponse" name="getAllPersonResponse">
         </wsdl:part>
     </wsdl:message>
     <wsdl:portType name="GetAllPersonsPort">
-        <wsdl:operation name="getAccountTransactions">
-            <wsdl:input message="tns:getAccountTransactionsRequest" name="getAccountTransactionsRequest">
+        <wsdl:operation name="getAllPerson">
+            <wsdl:input message="tns:getAllPersonRequest" name="getAllPersonRequest">
             </wsdl:input>
-            <wsdl:output message="tns:getAccountTransactionsResponse" name="getAccountTransactionsResponse">
+            <wsdl:output message="tns:getAllPersonResponse" name="getAllPersonResponse">
             </wsdl:output>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="GetAllPersonsPortSoap11" type="tns:GetAllPersonsPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="getAccountTransactions">
+        <wsdl:operation name="getAllPerson">
             <soap:operation soapAction=""/>
-            <wsdl:input name="getAccountTransactionsRequest">
+            <wsdl:input name="getAllPersonRequest">
                 <soap:body use="literal"/>
             </wsdl:input>
-            <wsdl:output name="getAccountTransactionsResponse">
+            <wsdl:output name="getAllPersonResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
