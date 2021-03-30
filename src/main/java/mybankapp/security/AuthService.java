@@ -75,5 +75,15 @@ public class AuthService {
 
         return ResponseEntity.ok(response);
     }
+
+    public String simpleRefresh(String refreshtoken){
+        String username = jwtTokenProvider.getUserName(refreshtoken);
+        Person person = personService.getPersonByName(jwtTokenProvider.getUserName(refreshtoken));
+        String newAccessToken = null;
+        if (jwtTokenProvider.validateRefreshToken(refreshtoken)) {
+            newAccessToken = jwtTokenProvider.createToken(username, person.getRoles());
+        }
+        return newAccessToken;
+    }
 }
 

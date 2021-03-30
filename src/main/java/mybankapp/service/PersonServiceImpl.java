@@ -50,7 +50,6 @@ public class PersonServiceImpl implements PersonService{
         Role roleUser = roleDAO.findByName("ROLE_USER").get();
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
-
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRoles(userRoles);
         personDAO.create(person);
@@ -65,6 +64,11 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public UUID createPerson(Person person){
+        Role roleUser = roleDAO.findByName("ROLE_USER").get();
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(roleUser);
+        person.setRoles(userRoles);
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
         return personDAO.create(person);
     }
 
@@ -90,7 +94,7 @@ public class PersonServiceImpl implements PersonService{
     public ResponseEntity<CurrencyAccountDTO> addAccount(CurrencyAccount account, UUID personUUID) {
         Optional<Person> optionalPerson = personDAO.find(personUUID);
         if (optionalPerson.isPresent()) {
-            optionalPerson.get().getAccounts().add(account);
+            //optionalPerson.get().getAccounts().add(account);
             account.setOwner(optionalPerson.get());
             accountDAO.createAccount(account);
             return ResponseEntity.ok(CurrencyAccountDTO.from(account));
@@ -104,6 +108,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public List<CurrencyAccountDTO> getAllAccounts(UUID personUUID) {
         List<CurrencyAccountDTO> result = new ArrayList<>();
         if (personDAO.find(personUUID).isPresent()) {
@@ -116,6 +121,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public List<TransactionDTO> getAccountTransactions(long accountId) {
         List<TransactionDTO> result = new ArrayList<>();
         if (accountDAO.findAccount(accountId).isPresent()) {
@@ -159,6 +165,7 @@ public class PersonServiceImpl implements PersonService{
         if (optionalPerson.isPresent()) {
             Person newPerson = optionalPerson.get();
             newPerson.setName(person.getName());
+            newPerson.setPassword(passwordEncoder.encode(person.getPassword()));
             personDAO.create(newPerson);
             return ResponseEntity.ok("Person " + uuid.toString() + " updated");
         }

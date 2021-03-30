@@ -39,4 +39,9 @@ public class Person {
             joinColumns = @JoinColumn(name = "uuid"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
+    public Person(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/news/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost:8080" targetNamespace="http://localhost:8080">
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://www.mybankapp.org/news/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/news/wsdl">
+
+            <xs:element name="addNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="title" type="xs:string"/>
+                        <xs:element name="shorttext" type="xs:string"/>
+                        <xs:element name="fulltext" type="xs:string"/>
+                        <xs:element name="linktoimg" type="xs:string"/>
+                        <xs:element name="buttonname" type="xs:string"/>
+                        <xs:element name="isActual" type="xs:boolean"/>
+                        <xs:element name="url" type="xs:anyURI"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="watchNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="watchNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="unwatchNewsArticleRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="unwatchNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="showNewsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="numberOfNews" type="xs:int"/>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="showNewsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="showArchiveRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="numberOfNews" type="xs:int"/>
+                        <xs:element name="uuid">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:maxLength value="36"/>
+                                    <xs:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="showArchiveResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+
+            <xs:complexType name="newsArticleDTO">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="title" type="xs:string"/>
+                    <xs:element name="shorttext" type="xs:string"/>
+                    <xs:element name="fulltext" type="xs:string"/>
+                    <xs:element name="linktoimg" type="xs:string"/>
+                    <xs:element name="buttonname" type="xs:string"/>
+                    <xs:element name="url" type="xs:anyURI"/>
+                    <xs:element name="isActual" type="xs:boolean"/>
+                    <xs:element name="date" type="xs:dateTime"/>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="unwatchNewsArticleResponse">
+        <wsdl:part element="sch:unwatchNewsArticleResponse" name="unwatchNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findNewsArticleResponse">
+        <wsdl:part element="sch:findNewsArticleResponse" name="findNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="watchNewsArticleRequest">
+        <wsdl:part element="sch:watchNewsArticleRequest" name="watchNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="watchNewsArticleResponse">
+        <wsdl:part element="sch:watchNewsArticleResponse" name="watchNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="showArchiveRequest">
+        <wsdl:part element="sch:showArchiveRequest" name="showArchiveRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteNewsArticleRequest">
+        <wsdl:part element="sch:deleteNewsArticleRequest" name="deleteNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="showNewsResponse">
+        <wsdl:part element="sch:showNewsResponse" name="showNewsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteNewsArticleResponse">
+        <wsdl:part element="sch:deleteNewsArticleResponse" name="deleteNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="unwatchNewsArticleRequest">
+        <wsdl:part element="sch:unwatchNewsArticleRequest" name="unwatchNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addNewsArticleRequest">
+        <wsdl:part element="sch:addNewsArticleRequest" name="addNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addNewsArticleResponse">
+        <wsdl:part element="sch:addNewsArticleResponse" name="addNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findNewsArticleRequest">
+        <wsdl:part element="sch:findNewsArticleRequest" name="findNewsArticleRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="showArchiveResponse">
+        <wsdl:part element="sch:showArchiveResponse" name="showArchiveResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="showNewsRequest">
+        <wsdl:part element="sch:showNewsRequest" name="showNewsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="NewsPort">
+        <wsdl:operation name="unwatchNewsArticle">
+            <wsdl:input message="tns:unwatchNewsArticleRequest" name="unwatchNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:unwatchNewsArticleResponse" name="unwatchNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findNewsArticle">
+            <wsdl:input message="tns:findNewsArticleRequest" name="findNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findNewsArticleResponse" name="findNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="watchNewsArticle">
+            <wsdl:input message="tns:watchNewsArticleRequest" name="watchNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:watchNewsArticleResponse" name="watchNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="showArchive">
+            <wsdl:input message="tns:showArchiveRequest" name="showArchiveRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:showArchiveResponse" name="showArchiveResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteNewsArticle">
+            <wsdl:input message="tns:deleteNewsArticleRequest" name="deleteNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteNewsArticleResponse" name="deleteNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="showNews">
+            <wsdl:input message="tns:showNewsRequest" name="showNewsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:showNewsResponse" name="showNewsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addNewsArticle">
+            <wsdl:input message="tns:addNewsArticleRequest" name="addNewsArticleRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addNewsArticleResponse" name="addNewsArticleResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="NewsPortSoap11" type="tns:NewsPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="unwatchNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="unwatchNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="unwatchNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="watchNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="watchNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="watchNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="showArchive">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="showArchiveRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="showArchiveResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="showNews">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="showNewsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="showNewsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addNewsArticle">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addNewsArticleRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="NewsPortService">
+        <wsdl:port binding="tns:NewsPortSoap11" name="NewsPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

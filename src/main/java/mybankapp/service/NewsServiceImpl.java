@@ -9,6 +9,7 @@ import mybankapp.model.Person;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,7 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
+    @Transactional
     public ResponseEntity watchArticleByPerson(UUID uuid, long articleId) {
         if (!personDAO.find(uuid).isPresent() ||
                 !newsArticleDAO.findNewsArticle(articleId).isPresent())
@@ -53,6 +55,7 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
+    @Transactional
     public ResponseEntity unWatchArticleByPerson(UUID uuid, long articleId) {
         if (!personDAO.find(uuid).isPresent() || !newsArticleDAO.findNewsArticle(articleId).isPresent())
             return ResponseEntity.notFound().build();
@@ -65,6 +68,7 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
+    @Transactional
     public ResponseEntity<List<NewsArticleDTO>> getNewsfeed(UUID uuid, int numberOfNews) {
         List<NewsArticle> list = new ArrayList<>();
         if (!personDAO.find(uuid).isPresent()) return ResponseEntity.notFound().build();
@@ -84,6 +88,7 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
+    @Transactional
     public ResponseEntity<List<NewsArticleDTO>> getArchive(UUID uuid, int numberOfNews) {
         List<NewsArticle> list = new ArrayList<>();
         if (!personDAO.find(uuid).isPresent()) return ResponseEntity.notFound().build();

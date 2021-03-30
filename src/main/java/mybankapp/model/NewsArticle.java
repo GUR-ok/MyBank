@@ -51,4 +51,14 @@ public class NewsArticle {
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "uuid"))
     private Set<Person> whoWatched = new HashSet<>();
+
+    public NewsArticle(String title, String shorttext, String fulltext, String linkToImg, String buttonName, Boolean isActual, URL url){
+        this.title = title;
+        this.shortDescription = shorttext;
+        this.fullDescription = fulltext;
+        this.linkToImg = linkToImg;
+        this.buttonName = buttonName;
+        this.isActual = isActual;
+        this.url = url;
+    }
 }
