@@ -6,6 +6,8 @@ import mybankapp.security.AuthService;
 
 import mybankapp.ws.org.mybankapp.auth.wsdl.LoginRequest;
 import mybankapp.ws.org.mybankapp.auth.wsdl.LoginResponse;
+import mybankapp.ws.org.mybankapp.auth.wsdl.RefreshRequest;
+import mybankapp.ws.org.mybankapp.auth.wsdl.RefreshResponse;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -28,13 +30,13 @@ public class AuthenticationEndpoint {
         response.setAccessData((Map<Object, Object>) authService.login(new AuthenticationRequestDTO(request.getUsername(), request.getPassword())).getBody());
         return response;
     }
-/*
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "refreshRequest")
     @ResponsePayload
     public RefreshResponse refreshtoken(@RequestPayload RefreshRequest request) {
         RefreshResponse response = new RefreshResponse();
-
-        return ;
+        response.setNewAccessToken(authService.simpleRefresh(request.getRefreshtoken()));
+        return response;
     }
-*/
+
 }
