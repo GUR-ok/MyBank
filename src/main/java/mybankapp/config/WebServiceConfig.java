@@ -58,11 +58,11 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema addtransactionSchema() {
         return new SimpleXsdSchema(new ClassPathResource("/schemas/services/authservice.xsd"));
     }
-    @Bean(name = "authentication")
+    @Bean(name = "auth")
     public DefaultWsdl11Definition addtransactionDefinition(@Qualifier("authenticationSchema") XsdSchema xsdSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("AuthenticationPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("ws/bank/login");
         wsdl11Definition.setTargetNamespace("http://localhost:8080");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;

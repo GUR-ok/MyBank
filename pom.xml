@@ -94,7 +94,7 @@
                 </executions>
                 <configuration>
                     <sources>${project.basedir}/src/main/resources/schemas/services</sources>
-                    <outputDirectory>${project.basedir}/src/main/java/mybankapp/ws</outputDirectory>
+                    <outputDirectory>${project.basedir}/target/ws</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>

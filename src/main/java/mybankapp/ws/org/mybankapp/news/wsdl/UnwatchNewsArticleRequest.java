@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "unwatchNewsArticleRequest")
 public class UnwatchNewsArticleRequest {
-
+    @XmlElement(required = true)
     protected long newsId;
     @XmlElement(required = true)
     protected String uuid;

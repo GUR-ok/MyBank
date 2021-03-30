@@ -1,6 +1,7 @@
 package mybankapp.ws.endpoints;
 
 import lombok.RequiredArgsConstructor;
+import mybankapp.model.NewsArticle;
 import mybankapp.service.NewsService;
 
 import mybankapp.ws.org.mybankapp.news.wsdl.*;
@@ -23,7 +24,7 @@ public class NewsEndpoint {
     @ResponsePayload
     public AddNewsArticleResponse addNewsArticle(@RequestPayload AddNewsArticleRequest request) {
         AddNewsArticleResponse response = new AddNewsArticleResponse();
-        response.setNewsArticleDTO(service.createNewsArticle(request.getNewsArticleDTO().toArticle()));
+        response.setNewsArticleDTO(service.createNewsArticle(new NewsArticle(request.getTitle(), request.getShorttext(), request.getFulltext(), request.getLinktoimg(), request.getButtonname(), request.getActual(),request.getUrl())));
         return response;
     }
 
@@ -37,25 +38,32 @@ public class NewsEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "watchNewsArticleRequest")
     @ResponsePayload
-    public Long watchNewsArticle(@RequestPayload WatchNewsArticleRequest request) {
+    public WatchNewsArticleResponse watchNewsArticle(@RequestPayload WatchNewsArticleRequest request) {
+        WatchNewsArticleResponse response = new WatchNewsArticleResponse();
+        response.setNewsId(request.getNewsId());
         service.watchArticleByPerson(UUID.fromString(request.getUuid()),request.getNewsId());
-        return request.getNewsId();
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteNewsArticleRequest")
     @ResponsePayload
-    public Long deleteNewsArticle(@RequestPayload DeleteNewsArticleRequest request) {
+    public DeleteNewsArticleResponse deleteNewsArticle(@RequestPayload DeleteNewsArticleRequest request) {
+        DeleteNewsArticleResponse response = new DeleteNewsArticleResponse();
+        response.setNewsId(request.getNewsId());
         service.deleteNewsArticle(request.getNewsId());
-        return request.getNewsId();
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "unwatchNewsArticleRequest")
     @ResponsePayload
-    public Long unwatchNewsArticle(@RequestPayload UnwatchNewsArticleRequest request) {
+    public UnwatchNewsArticleResponse unwatchNewsArticle(@RequestPayload UnwatchNewsArticleRequest request) {
+        UnwatchNewsArticleResponse response = new UnwatchNewsArticleResponse();
+        response.setNewsId(request.getNewsId());
         service.unWatchArticleByPerson(UUID.fromString(request.getUuid()),request.getNewsId());
-        return request.getNewsId();
+        return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "showNewsRequest")
     @ResponsePayload
     public ShowNewsResponse showNews(@RequestPayload ShowNewsRequest request) {
         ShowNewsResponse response = new ShowNewsResponse();
@@ -63,10 +71,11 @@ public class NewsEndpoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "showArchiveRequest")
     @ResponsePayload
     public ShowArchiveResponse showArchive(@RequestPayload ShowArchiveRequest request) {
         ShowArchiveResponse response = new ShowArchiveResponse();
-        response.setNewsArticleDTO(service.getNewsfeed(UUID.fromString(request.getUuid()),request.getNumberOfNews()).getBody());
+        response.setNewsArticleDTO(service.getArchive(UUID.fromString(request.getUuid()),request.getNumberOfNews()).getBody());
         return response;
     }
 }

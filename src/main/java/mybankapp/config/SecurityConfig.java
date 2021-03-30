@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ADMIN_ENDPOINT = "/admin/**";
     private static final String LOGIN_ENDPOINT = "/bank/login";
-
+    private static final String WSLOGIN_ENDPOINT = "/ws/bank/login";
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(WSLOGIN_ENDPOINT).permitAll()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

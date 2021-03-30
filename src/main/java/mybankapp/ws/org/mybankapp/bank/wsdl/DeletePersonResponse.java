@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "deletePersonResponse")
 public class DeletePersonResponse {
 
+    @XmlElement(required = true)
+    protected String uuid;
+
     public String getUuid() {
         return uuid;
     }
@@ -17,6 +20,5 @@ public class DeletePersonResponse {
         this.uuid = uuid;
     }
 
-    @XmlElement(required = true)
-    protected String uuid;
+
 }

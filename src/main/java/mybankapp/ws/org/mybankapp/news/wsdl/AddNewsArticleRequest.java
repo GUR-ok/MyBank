@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.net.URL;
+import java.util.Date;
 
 
 /**
@@ -38,36 +40,85 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "newsArticleDTO"
+        "title",
+        "shorttext",
+        "fulltext",
+        "linktoimg",
+        "buttonname",
+        "isActual",
+        "url"
 })
 @XmlRootElement(name = "addNewsArticleRequest")
 public class AddNewsArticleRequest {
 
     @XmlElement(required = true)
-    protected NewsArticleDTO newsArticleDTO;
+    protected String title;
+    @XmlElement(required = true)
+    protected String shorttext;
+    @XmlElement(required = true)
+    protected String fulltext;
+    @XmlElement(required = true)
+    protected String linktoimg;
+    @XmlElement(required = true)
+    protected String buttonname;
+    @XmlElement(required = true)
+    protected Boolean isActual;
+    @XmlElement(required = true)
+    protected URL url;
 
-    /**
-     * Gets the value of the newsArticleDTO property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link NewsArticleDTO }
-     *     
-     */
-    public NewsArticleDTO getNewsArticleDTO() {
-        return newsArticleDTO;
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     * Sets the value of the newsArticleDTO property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link NewsArticleDTO }
-     *     
-     */
-    public void setNewsArticleDTO(NewsArticleDTO value) {
-        this.newsArticleDTO = value;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    public String getShorttext() {
+        return shorttext;
+    }
+
+    public void setShorttext(String shorttext) {
+        this.shorttext = shorttext;
+    }
+
+    public String getFulltext() {
+        return fulltext;
+    }
+
+    public void setFulltext(String fulltext) {
+        this.fulltext = fulltext;
+    }
+
+    public String getLinktoimg() {
+        return linktoimg;
+    }
+
+    public void setLinktoimg(String linktoimg) {
+        this.linktoimg = linktoimg;
+    }
+
+    public String getButtonname() {
+        return buttonname;
+    }
+
+    public void setButtonname(String buttonname) {
+        this.buttonname = buttonname;
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+
+    public Boolean getActual() {
+        return isActual;
+    }
+
+    public void setActual(Boolean actual) {
+        isActual = actual;
+    }
 }

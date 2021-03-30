@@ -40,4 +40,10 @@ public class AuthenticationRequestDTO {
         person.setPassword(passwordEncoder.encode(this.getPassword()));
         return person;
     }
+
+    public AuthenticationRequestDTO(String username, String password) {
+        this.password = password;
+        this.username = username;
+    }
+
 }

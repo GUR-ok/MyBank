@@ -13,7 +13,6 @@ import mybankapp.model.CurrencyAccount;
 import mybankapp.model.Person;
 import mybankapp.model.Role;
 import mybankapp.model.Transaction;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;

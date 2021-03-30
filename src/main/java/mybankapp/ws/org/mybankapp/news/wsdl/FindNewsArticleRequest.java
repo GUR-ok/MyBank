@@ -8,10 +8,7 @@
 
 package mybankapp.ws.org.mybankapp.news.wsdl;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -39,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "findNewsArticleRequest")
 public class FindNewsArticleRequest {
-
+    @XmlElement(required = true)
     protected long newsId;
 
     /**

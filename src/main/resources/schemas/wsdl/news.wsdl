@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:sch="http://www.mybankapp.org/news/wsdl"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:tns="http://localhost:8080"
-                  targetNamespace="http://localhost:8080">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mybankapp.org/news/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost:8080" targetNamespace="http://localhost:8080">
     <wsdl:types>
-        <xs:schema xmlns:tns="http://www.mybankapp.org/news/wsdl"
-                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   elementFormDefault="qualified"
-                   targetNamespace="http://www.mybankapp.org/news/wsdl">
+        <xs:schema xmlns:tns="http://www.mybankapp.org/news/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mybankapp.org/news/wsdl">
 
             <xs:element name="addNewsArticleRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="newsArticleDTO" type="tns:newsArticleDTO"/>
+                        <xs:element name="title" type="xs:string"/>
+                        <xs:element name="shorttext" type="xs:string"/>
+                        <xs:element name="fulltext" type="xs:string"/>
+                        <xs:element name="linktoimg" type="xs:string"/>
+                        <xs:element name="buttonname" type="xs:string"/>
+                        <xs:element name="isActual" type="xs:boolean"/>
+                        <xs:element name="url" type="xs:anyURI"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -59,6 +57,11 @@
             </xs:element>
 
             <xs:element name="watchNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
 
             <xs:element name="deleteNewsArticleRequest">
@@ -69,7 +72,12 @@
                 </xs:complexType>
             </xs:element>
 
-            <xs:element name="deleteAccountResponse">
+            <xs:element name="deleteNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
 
             <xs:element name="unwatchNewsArticleRequest">
@@ -89,6 +97,11 @@
             </xs:element>
 
             <xs:element name="unwatchNewsArticleResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="newsId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
 
             <xs:element name="showNewsRequest">
@@ -149,6 +162,7 @@
                     <xs:element name="linktoimg" type="xs:string"/>
                     <xs:element name="buttonname" type="xs:string"/>
                     <xs:element name="url" type="xs:anyURI"/>
+                    <xs:element name="isActual" type="xs:boolean"/>
                     <xs:element name="date" type="xs:dateTime"/>
                 </xs:sequence>
             </xs:complexType>
@@ -183,16 +197,16 @@
         <wsdl:part element="sch:showNewsResponse" name="showNewsResponse">
         </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="deleteNewsArticleResponse">
+        <wsdl:part element="sch:deleteNewsArticleResponse" name="deleteNewsArticleResponse">
+        </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="unwatchNewsArticleRequest">
         <wsdl:part element="sch:unwatchNewsArticleRequest" name="unwatchNewsArticleRequest">
         </wsdl:part>
     </wsdl:message>
     <wsdl:message name="addNewsArticleRequest">
         <wsdl:part element="sch:addNewsArticleRequest" name="addNewsArticleRequest">
-        </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="deleteAccountResponse">
-        <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
         </wsdl:part>
     </wsdl:message>
     <wsdl:message name="addNewsArticleResponse">
@@ -239,6 +253,8 @@
         <wsdl:operation name="deleteNewsArticle">
             <wsdl:input message="tns:deleteNewsArticleRequest" name="deleteNewsArticleRequest">
             </wsdl:input>
+            <wsdl:output message="tns:deleteNewsArticleResponse" name="deleteNewsArticleResponse">
+            </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="showNews">
             <wsdl:input message="tns:showNewsRequest" name="showNewsRequest">
@@ -250,10 +266,6 @@
             <wsdl:input message="tns:addNewsArticleRequest" name="addNewsArticleRequest">
             </wsdl:input>
             <wsdl:output message="tns:addNewsArticleResponse" name="addNewsArticleResponse">
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="deleteAccount">
-            <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
             </wsdl:output>
         </wsdl:operation>
     </wsdl:portType>
@@ -300,6 +312,9 @@
             <wsdl:input name="deleteNewsArticleRequest">
                 <soap:body use="literal"/>
             </wsdl:input>
+            <wsdl:output name="deleteNewsArticleResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="showNews">
             <soap:operation soapAction=""/>
@@ -316,12 +331,6 @@
                 <soap:body use="literal"/>
             </wsdl:input>
             <wsdl:output name="addNewsArticleResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="deleteAccount">
-            <soap:operation soapAction=""/>
-            <wsdl:output name="deleteAccountResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>

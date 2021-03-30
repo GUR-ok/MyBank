@@ -126,6 +126,12 @@
             </xs:element>
 
             <xs:element name="deleteAccountResponse">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36" />
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:element>
 
             <xs:element name="deletePersonRequest">
@@ -144,6 +150,12 @@
             </xs:element>
 
             <xs:element name="deletePersonResponse">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="36" />
+                        <xs:pattern value="([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:element>
 
             <xs:element name="updatePersonRequest">

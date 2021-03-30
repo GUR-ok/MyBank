@@ -13,10 +13,7 @@ import mybankapp.dto.PersonDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -44,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "showArchiveResponse")
 public class ShowArchiveResponse {
-
+    @XmlElement(required = true)
     protected List<NewsArticleDTO> newsArticleDTO = new ArrayList<>();
 
     /**

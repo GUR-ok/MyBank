@@ -5,7 +5,8 @@
     <xs:element name="loginRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="transactionDTO" type="tns:authenticationRequestDTO"/>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -13,9 +14,21 @@
     <xs:element name="loginResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="username" type="xs:string"/>
-                <xs:element name="AccessToken" type="xs:string"/>
-                <xs:element name="RefreshToken" type="xs:string"/>
+                <xs:element name="accessData">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="username" type="xs:string"/>
+                                        <xs:element name="AccessToken" type="xs:string"/>
+                                        <xs:element name="RefreshToken" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -31,12 +44,5 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-        <xs:complexType name="authenticationRequestDTO">
-            <xs:sequence>
-                <xs:element name="username" type="xs:string"/>
-                <xs:element name="password" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
 
 </xs:schema>
