@@ -2,6 +2,7 @@ package mybankapp.ws.endpoints;
 
 import lombok.RequiredArgsConstructor;
 import mybankapp.dto.AuthenticationRequestDTO;
+import mybankapp.exception.MyBusinessException;
 import mybankapp.security.AuthService;
 
 import mybankapp.ws.org.mybankapp.auth.wsdl.LoginRequest;
@@ -33,7 +34,7 @@ public class AuthenticationEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "refreshRequest")
     @ResponsePayload
-    public RefreshResponse refreshtoken(@RequestPayload RefreshRequest request) {
+    public RefreshResponse refreshtoken(@RequestPayload RefreshRequest request) throws MyBusinessException {
         RefreshResponse response = new RefreshResponse();
         response.setNewAccessToken(authService.simpleRefresh(request.getRefreshtoken()));
         return response;

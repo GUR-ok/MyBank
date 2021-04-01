@@ -1,6 +1,7 @@
 package mybankapp.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import mybankapp.model.Person;
 import mybankapp.security.jwt.JwtUser;
@@ -18,6 +19,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     private final PersonService personService;
 
+    @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         Person person = personService.getPersonByName(userName);

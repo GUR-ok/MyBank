@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mybankapp.dto.AuthenticationRequestDTO;
+import mybankapp.exception.MyBusinessException;
 import mybankapp.model.Person;
 import mybankapp.security.jwt.JwtTokenProvider;
 import mybankapp.service.PersonService;
@@ -49,12 +50,12 @@ public class AuthService {
 
             return ResponseEntity.ok(response);
         } catch (
-                AuthenticationException e) {
+                AuthenticationException | MyBusinessException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
 
-    public ResponseEntity refresh(HttpServletRequest request){
+    public ResponseEntity refresh(HttpServletRequest request) throws MyBusinessException {
 
         //Get claims from request
         DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
@@ -76,7 +77,7 @@ public class AuthService {
         return ResponseEntity.ok(response);
     }
 
-    public String simpleRefresh(String refreshtoken){
+    public String simpleRefresh(String refreshtoken) throws MyBusinessException {
         String username = jwtTokenProvider.getUserName(refreshtoken);
         Person person = personService.getPersonByName(jwtTokenProvider.getUserName(refreshtoken));
         String newAccessToken = null;
