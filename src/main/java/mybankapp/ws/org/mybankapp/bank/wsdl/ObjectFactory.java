@@ -8,9 +8,9 @@
 
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
-import mybankapp.dto.CurrencyAccountDTO;
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
+import mybankapp.domain.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.PersonDTO;
+import mybankapp.domain.dto.TransactionDTO;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

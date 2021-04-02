@@ -1,10 +1,10 @@
 package mybankapp.ws.endpoints;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.exception.MyBusinessException;
-import mybankapp.model.CurrencyAccount;
-import mybankapp.model.Person;
-import mybankapp.model.Transaction;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.domain.model.CurrencyAccount;
+import mybankapp.domain.model.Person;
+import mybankapp.domain.model.Transaction;
 import mybankapp.service.PersonService;
 
 import mybankapp.ws.org.mybankapp.bank.wsdl.*;

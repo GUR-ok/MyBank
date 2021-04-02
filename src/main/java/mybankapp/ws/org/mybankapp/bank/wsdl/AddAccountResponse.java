@@ -8,7 +8,7 @@
 
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
-import mybankapp.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.CurrencyAccountDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

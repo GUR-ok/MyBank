@@ -1,6 +1,6 @@
 package mybankapp.repository;
 
-import mybankapp.model.Person;
+import mybankapp.domain.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

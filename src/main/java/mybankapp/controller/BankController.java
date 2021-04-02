@@ -1,13 +1,13 @@
 package mybankapp.controller;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.dto.CurrencyAccountDTO;
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
-import mybankapp.exception.MyBusinessException;
-import mybankapp.model.CurrencyAccount;
-import mybankapp.model.Person;
-import mybankapp.model.Transaction;
+import mybankapp.domain.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.PersonDTO;
+import mybankapp.domain.dto.TransactionDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.domain.model.CurrencyAccount;
+import mybankapp.domain.model.Person;
+import mybankapp.domain.model.Transaction;
 import mybankapp.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

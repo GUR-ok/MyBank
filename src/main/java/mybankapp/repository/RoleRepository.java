@@ -1,6 +1,6 @@
 package mybankapp.repository;
 
-import mybankapp.model.Role;
+import mybankapp.domain.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

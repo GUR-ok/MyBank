@@ -2,18 +2,18 @@ package mybankapp.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mybankapp.dao.AccountDAO;
-import mybankapp.dao.PersonDAO;
-import mybankapp.dao.RoleDAO;
-import mybankapp.dao.TransactionDAO;
-import mybankapp.dto.CurrencyAccountDTO;
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
-import mybankapp.exception.MyBusinessException;
-import mybankapp.model.CurrencyAccount;
-import mybankapp.model.Person;
-import mybankapp.model.Role;
-import mybankapp.model.Transaction;
+import mybankapp.service.dao.AccountDAO;
+import mybankapp.service.dao.PersonDAO;
+import mybankapp.service.dao.RoleDAO;
+import mybankapp.service.dao.TransactionDAO;
+import mybankapp.domain.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.PersonDTO;
+import mybankapp.domain.dto.TransactionDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.domain.model.CurrencyAccount;
+import mybankapp.domain.model.Person;
+import mybankapp.domain.model.Role;
+import mybankapp.domain.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -69,13 +69,6 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public ResponseEntity<PersonDTO> getPerson(UUID personUUID) throws MyBusinessException {
-       /*    if (personDAO.find(personUUID).isPresent()) {
-        *       PersonDTO dto = PersonDTO.from(personDAO.find(personUUID).get());
-        *       return ResponseEntity.ok(dto);
-        *   }
-        *   return ResponseEntity.notFound().build();
-        * */
-
         try {
             PersonDTO dto = PersonDTO.from(personDAO.find(personUUID).get());
             return ResponseEntity.ok(dto);
@@ -96,16 +89,6 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public ResponseEntity<CurrencyAccountDTO> addAccount(CurrencyAccount account, UUID personUUID) throws MyBusinessException {
-    /*    Optional<Person> optionalPerson = personDAO.find(personUUID);
-    *    if (optionalPerson.isPresent()) {
-    *        //optionalPerson.get().getAccounts().add(account);
-    *        account.setOwner(optionalPerson.get());
-    *        accountDAO.createAccount(account);
-    *        return ResponseEntity.ok(CurrencyAccountDTO.from(account));
-    *    }
-    *    return ResponseEntity.notFound().build();
-    */
-
         try {
             account.setOwner(personDAO.find(personUUID).get());
             accountDAO.createAccount(account);
@@ -176,19 +159,6 @@ public class PersonServiceImpl implements PersonService{
     @Override
     @Transactional
     public ResponseEntity<TransactionDTO> addTransaction(Transaction transaction, long accountId) throws MyBusinessException {
-     /*   Optional<CurrencyAccount> account = accountDAO.findAccount(accountId);
-     *   if (account.isPresent()){
-     *       account.get().getTransactions().add(transaction);
-     *       transaction.setAccount(account.get());
-     *       Double amount = account.get().getBalance();
-     *       amount += transaction.getAmount();
-     *       account.get().setBalance(amount);
-     *       transactionDAO.createTransaction(transaction);
-     *       return ResponseEntity.ok(TransactionDTO.from(transaction));
-     *  }
-     *   return ResponseEntity.notFound().build();
-     */
-
         try {
             CurrencyAccount account =  accountDAO.findAccount(accountId).get();
             account.getTransactions().add(transaction);
@@ -208,17 +178,6 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public ResponseEntity<String> updatePerson(Person person, UUID uuid) throws MyBusinessException {
-    /*    Optional<Person> optionalPerson = personDAO.find(uuid);
-     *   if (optionalPerson.isPresent()) {
-     *       Person newPerson = optionalPerson.get();
-     *       newPerson.setName(person.getName());
-     *       newPerson.setPassword(passwordEncoder.encode(person.getPassword()));
-     *       personDAO.create(newPerson);
-     *       return ResponseEntity.ok("Person " + uuid.toString() + " updated");
-     *   }
-     *   return ResponseEntity.notFound().build();
-     */
-
         try {
             Person newPerson = personDAO.find(uuid).get();
             newPerson.setName(person.getName());

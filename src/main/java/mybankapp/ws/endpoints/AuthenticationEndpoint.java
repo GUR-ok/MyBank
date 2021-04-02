@@ -1,9 +1,9 @@
 package mybankapp.ws.endpoints;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.dto.AuthenticationRequestDTO;
-import mybankapp.exception.MyBusinessException;
-import mybankapp.security.AuthService;
+import mybankapp.domain.dto.AuthenticationRequestDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.service.security.AuthService;
 
 import mybankapp.ws.org.mybankapp.auth.wsdl.LoginRequest;
 import mybankapp.ws.org.mybankapp.auth.wsdl.LoginResponse;
