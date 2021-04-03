@@ -1,7 +1,7 @@
 package mybankapp.ws.jaxb;
 
-import mybankapp.dto.NewsArticleDTO;
-import mybankapp.dto.PersonDTO;
+import mybankapp.domain.dto.NewsArticleDTO;
+import mybankapp.domain.dto.PersonDTO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

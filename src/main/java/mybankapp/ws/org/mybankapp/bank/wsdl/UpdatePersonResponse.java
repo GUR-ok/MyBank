@@ -1,7 +1,5 @@
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
-import mybankapp.dto.PersonDTO;
-
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)

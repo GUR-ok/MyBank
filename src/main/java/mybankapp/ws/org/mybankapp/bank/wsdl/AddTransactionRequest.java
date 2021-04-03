@@ -8,8 +8,6 @@
 
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
-import mybankapp.dto.TransactionDTO;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;

@@ -8,8 +8,7 @@
 
 package mybankapp.ws.org.mybankapp.bank.wsdl;
 
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
+import mybankapp.domain.dto.PersonDTO;
 
 import java.util.ArrayList;
 import java.util.List;

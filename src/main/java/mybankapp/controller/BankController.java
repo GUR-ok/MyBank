@@ -1,12 +1,13 @@
 package mybankapp.controller;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.dto.CurrencyAccountDTO;
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
-import mybankapp.model.CurrencyAccount;
-import mybankapp.model.Person;
-import mybankapp.model.Transaction;
+import mybankapp.domain.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.PersonDTO;
+import mybankapp.domain.dto.TransactionDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.domain.model.CurrencyAccount;
+import mybankapp.domain.model.Person;
+import mybankapp.domain.model.Transaction;
 import mybankapp.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,13 @@ public class BankController {
     private final PersonService service;
 
     @PostMapping
-    public ResponseEntity<String> addPerson(@RequestBody Person person) {
+    public ResponseEntity<String> addPerson(@RequestBody Person person) throws MyBusinessException {
         log.info("addPerson through controller");
         return ResponseEntity.ok(service.createPerson(person).toString());
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<PersonDTO> getPerson(@PathVariable UUID uuid) {
+    public ResponseEntity<PersonDTO> getPerson(@PathVariable UUID uuid) throws MyBusinessException {
         log.info("getPerson through controller");
         return service.getPerson(uuid);
     }
@@ -42,20 +43,20 @@ public class BankController {
     }
 
     @PostMapping("/{uuid}")
-    public ResponseEntity<CurrencyAccountDTO> addAccount(@RequestBody CurrencyAccount account, @PathVariable UUID uuid) {
+    public ResponseEntity<CurrencyAccountDTO> addAccount(@RequestBody CurrencyAccount account, @PathVariable UUID uuid) throws MyBusinessException {
         log.info("addAccount through controller");
         return service.addAccount(account, uuid);
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity deletePerson(@PathVariable UUID uuid) {
+    public ResponseEntity deletePerson(@PathVariable UUID uuid) throws MyBusinessException {
         log.info("deletePerson through controller");
         service.deletePerson(uuid);
         return ResponseEntity.ok().body(null);
     }
 
     @DeleteMapping("/accounts/{accountId}")
-    public ResponseEntity deleteAccount(@PathVariable long accountId) {
+    public ResponseEntity deleteAccount(@PathVariable long accountId) throws MyBusinessException {
         log.info("deleteAccount through controller");
         service.deleteAccount(accountId);
         return ResponseEntity.ok().body(null);
@@ -68,19 +69,19 @@ public class BankController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<String> updatePerson(@RequestBody Person person, @PathVariable UUID uuid) {
+    public ResponseEntity<String> updatePerson(@RequestBody Person person, @PathVariable UUID uuid) throws MyBusinessException {
         log.info("updatePerson through controller");
         return service.updatePerson(person, uuid);
     }
 
     @PostMapping("/accounts/{accountId}")
-    public ResponseEntity<TransactionDTO> addTransaction(@RequestBody Transaction transaction, @PathVariable Long accountId) {
+    public ResponseEntity<TransactionDTO> addTransaction(@RequestBody Transaction transaction, @PathVariable Long accountId) throws MyBusinessException {
         log.info("addTransaction through controller");
         return service.addTransaction(transaction, accountId);
     }
 
     @GetMapping("/accounts/{accountId}/transactions")
-    public ResponseEntity<List<TransactionDTO>> getAccountTransactions(@PathVariable Long accountId) {
+    public ResponseEntity<List<TransactionDTO>> getAccountTransactions(@PathVariable Long accountId) throws MyBusinessException {
         log.info("getAccountTransactions through controller");
         return ResponseEntity.ok(service.getAccountTransactions(accountId));
     }

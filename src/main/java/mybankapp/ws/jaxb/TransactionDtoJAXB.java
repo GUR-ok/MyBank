@@ -1,6 +1,6 @@
 package mybankapp.ws.jaxb;
 
-import mybankapp.dto.TransactionDTO;
+import mybankapp.domain.dto.TransactionDTO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

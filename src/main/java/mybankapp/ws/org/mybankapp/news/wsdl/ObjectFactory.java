@@ -8,7 +8,7 @@
 
 package mybankapp.ws.org.mybankapp.news.wsdl;
 
-import mybankapp.dto.NewsArticleDTO;
+import mybankapp.domain.dto.NewsArticleDTO;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

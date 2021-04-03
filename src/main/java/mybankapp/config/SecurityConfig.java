@@ -1,8 +1,8 @@
 package mybankapp.config;
 
 import lombok.RequiredArgsConstructor;
-import mybankapp.security.jwt.JwtConfigurer;
-import mybankapp.security.jwt.JwtTokenProvider;
+import mybankapp.service.security.jwt.JwtConfigurer;
+import mybankapp.service.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

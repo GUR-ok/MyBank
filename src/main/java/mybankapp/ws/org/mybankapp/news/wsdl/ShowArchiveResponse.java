@@ -8,8 +8,7 @@
 
 package mybankapp.ws.org.mybankapp.news.wsdl;
 
-import mybankapp.dto.NewsArticleDTO;
-import mybankapp.dto.PersonDTO;
+import mybankapp.domain.dto.NewsArticleDTO;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,5 @@
 package mybankapp.ws.jaxb;
-import mybankapp.dto.PersonDTO;
+import mybankapp.domain.dto.PersonDTO;
 
 import javax.xml.bind.*;
 import java.io.*;

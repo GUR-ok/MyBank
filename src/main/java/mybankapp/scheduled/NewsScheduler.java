@@ -2,8 +2,8 @@ package mybankapp.scheduled;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import mybankapp.dao.NewsArticleDAO;
-import mybankapp.model.NewsArticle;
+import mybankapp.service.dao.NewsArticleDAO;
+import mybankapp.domain.model.NewsArticle;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

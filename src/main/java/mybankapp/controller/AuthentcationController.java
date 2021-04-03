@@ -2,8 +2,9 @@ package mybankapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mybankapp.dto.AuthenticationRequestDTO;
-import mybankapp.security.AuthService;
+import mybankapp.domain.dto.AuthenticationRequestDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.service.security.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class AuthentcationController {
     }
 
     @GetMapping(value = "/refreshtoken/")
-    public ResponseEntity refreshToken(HttpServletRequest request){
+    public ResponseEntity refreshToken(HttpServletRequest request) throws MyBusinessException {
         return authService.refresh(request);
     }
 }

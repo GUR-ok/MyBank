@@ -1,11 +1,12 @@
 package mybankapp.service;
 
-import mybankapp.dto.CurrencyAccountDTO;
-import mybankapp.dto.PersonDTO;
-import mybankapp.dto.TransactionDTO;
-import mybankapp.model.CurrencyAccount;
-import mybankapp.model.Person;
-import mybankapp.model.Transaction;
+import mybankapp.domain.dto.CurrencyAccountDTO;
+import mybankapp.domain.dto.PersonDTO;
+import mybankapp.domain.dto.TransactionDTO;
+import mybankapp.domain.exception.MyBusinessException;
+import mybankapp.domain.model.CurrencyAccount;
+import mybankapp.domain.model.Person;
+import mybankapp.domain.model.Transaction;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -14,18 +15,17 @@ import java.util.UUID;
 
 public interface PersonService {
 
-    Person register(Person person);
-    Person getPersonByName(String name);
+    Person getPersonByName(String name) throws MyBusinessException;
 
-    UUID createPerson(Person person);
-    ResponseEntity<PersonDTO> getPerson(UUID personUUID);
+    UUID createPerson(Person person) throws MyBusinessException;
+    ResponseEntity<PersonDTO> getPerson(UUID personUUID) throws MyBusinessException;
     List<PersonDTO> getAllPersons();
-    ResponseEntity<CurrencyAccountDTO> addAccount(CurrencyAccount account, UUID personUUID);
-    Optional<CurrencyAccount> getAccount(long accounId);
+    ResponseEntity<CurrencyAccountDTO> addAccount(CurrencyAccount account, UUID personUUID) throws MyBusinessException;
+    Optional<CurrencyAccount> getAccount(long accounId) throws MyBusinessException;
     List<CurrencyAccountDTO> getAllAccounts(UUID personUUID);
-    List<TransactionDTO> getAccountTransactions(long accountId);
-    void deletePerson(UUID personUUID);
-    void deleteAccount(long accountId);
-    ResponseEntity<TransactionDTO> addTransaction(Transaction transaction, long accountId);
-    ResponseEntity<String> updatePerson(Person person, UUID uuid);
+    List<TransactionDTO> getAccountTransactions(long accountId) throws MyBusinessException;
+    void deletePerson(UUID personUUID) throws MyBusinessException;
+    void deleteAccount(long accountId) throws MyBusinessException;
+    ResponseEntity<TransactionDTO> addTransaction(Transaction transaction, long accountId) throws MyBusinessException;
+    ResponseEntity<String> updatePerson(Person person, UUID uuid) throws MyBusinessException;
 }
