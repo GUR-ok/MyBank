@@ -1,14 +1,12 @@
 package mybankapp.controller;
 
+import mybankapp.domain.dto.AuthenticationRequestDTO;
 import mybankapp.domain.dto.PersonDTO;
 import mybankapp.domain.model.Person;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.json.JSONObject;
 
@@ -23,110 +21,97 @@ public class RestClient {
     static RestTemplate restTemplate = new RestTemplate();
 
     public static void main(String[] args) {
-        String token = loginPerson();
-        UUID createdUuid = callCreatePerson(token);
-        callGetAllPersonsAPI(token);
-        callGetGetPersonByIDAPI(token);
-        callUpdatePerson(token, createdUuid);
-        callDeletePerson(token, createdUuid);
-    }
-
-
-    public static String loginPerson() {
+        //Login User
         HttpHeaders headers = new HttpHeaders();
+        AuthenticationRequestDTO dto = new AuthenticationRequestDTO();
+        dto.setUsername("Admin");
+        dto.setPassword("test");
+        HttpEntity<Object> entity = new HttpEntity<>(dto, headers);
+        String s = postEntityMethod(LOGIN_USER, entity, String.class).getBody();
+            //Parsing accessToken
+        JSONObject obj = new JSONObject(s);
+        String token = obj.getString("AccessToken");
+        System.out.println(token+"\n");
 
-        Map<String, String> params = new HashMap<>();
-        params.put("username", "Admin");
-        params.put("password", "test");
-
-        HttpEntity<Map<String, String>> entity = new HttpEntity<>(params, headers);
-
-        String result = restTemplate.postForObject(LOGIN_USER, entity, String.class);
-        System.out.println(result + "\n");
-
-        //Parsing accessToken
-        JSONObject obj = new JSONObject(result);
-        String accessToken = obj.getString("AccessToken");
-        return accessToken;
-    }
-
-    public static void callGetAllPersonsAPI(String token) {
-
+        //Create Person
         String bearerToken = "Bearer " + token;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", bearerToken);
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>("parametrs", headers);
-
-        ResponseEntity<String> result = restTemplate.exchange(GET_ALL_PERSONS_API, HttpMethod.GET, entity, String.class);
-        System.out.println(result + "\n");
-    }
-
-    public static void callGetGetPersonByIDAPI(String token) {
-
-        String bearerToken = "Bearer " + token;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", bearerToken);
-
-        Map<String, UUID> params = new HashMap<>();
-        params.put("uuid", UUID.fromString("5b5ea1a4-b863-416b-a641-a879deb7c770"));
-
-        HttpEntity<Map<String, UUID>> entity = new HttpEntity<>(params, headers);
-
-        ResponseEntity<PersonDTO> result  = restTemplate.exchange(GET_PERSON_API,  HttpMethod.GET, entity, PersonDTO.class, params);
-        System.out.println(result.getBody().getUuid() + " " + result.getBody().getName() + "\n");
-    }
-
-    public static UUID callCreatePerson(String token) {
-        String bearerToken = "Bearer " + token;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", bearerToken);
-
+        HttpHeaders headersCreate = new HttpHeaders();
+        headersCreate.set("Authorization", bearerToken);
         Person person = new Person();
-        person.setName("RestClient");
-        person.setPassword("pass");
+        person.setName("RestClientNew");
+        person.setPassword("passNew");
+        HttpEntity<Object> entityCreate = new HttpEntity<>(person, headersCreate);
+        String createdUuid = postEntityMethod(CREATE_PERSON_API, entityCreate, String.class).getBody();
+        System.out.println(createdUuid+"\n");
 
-        HttpEntity<Person> entity = new HttpEntity<>(person, headers);
+        //Get all persons
+        HttpHeaders headersGetAll = new HttpHeaders();
+        headersGetAll.set("Authorization", bearerToken);
+        headersGetAll.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Object> entityGetAll = new HttpEntity<>("parametrs", headersGetAll);
+        List<PersonDTO> list = Arrays.asList(exchangeGetMethod(GET_ALL_PERSONS_API, entityGetAll, PersonDTO[].class).getBody());
+        System.out.println(list+"\n");
 
-        ResponseEntity<String> result = restTemplate.postForEntity(CREATE_PERSON_API, entity, String.class);
-        System.out.println("Created person UUID: " + result.getBody() + "\n");
-        return UUID.fromString(result.getBody());
+        //Get personById
+        HttpHeaders headersById = new HttpHeaders();
+        headersById.set("Authorization", bearerToken);
+        UUID uuid = UUID.fromString("5b5ea1a4-b863-416b-a641-a879deb7c770");
+        HttpEntity<Object> entityById = new HttpEntity<>("parametrs", headersById);
+        PersonDTO dtoById = exchangeGetMethodWithParams(GET_PERSON_API, entityById, PersonDTO.class, uuid).getBody();
+        System.out.println(dtoById+"\n");
+
+        //UpdatePerson
+        HttpHeaders headersupd = new HttpHeaders();
+        headersupd.set("Authorization", bearerToken);
+
+        Person personUpd = new Person();
+        personUpd.setName("RestClientUpdated");
+        personUpd.setPassword("pass2");
+        HttpEntity<Object> entityUpd = new HttpEntity<>(personUpd, headersupd);
+        String upd = exchangeUpdateMethodWithParams(UPDATE_PERSON_API, entityUpd, String.class,createdUuid).getBody();
+        System.out.println(upd+"\n");
+
+        //Delete Person by uuid
+        HttpHeaders headersDelete = new HttpHeaders();
+        headersDelete.set("Authorization", bearerToken);
+        HttpEntity<Object> entityDel = new HttpEntity<>("parametrs", headersDelete);
+        exchangeDeleteMethodWithParams(DELETE_PERSON_API, entityDel, String.class, createdUuid);
+
     }
 
-    public static void callDeletePerson(String token, UUID uuid) {
-        String bearerToken = "Bearer " + token;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", bearerToken);
-
-        Map<String, UUID> params = new HashMap<>();
-        params.put("uuid", uuid);
-
-        HttpEntity<Map<String, UUID>> entity = new HttpEntity<>(params, headers);
-
-        restTemplate.exchange(DELETE_PERSON_API,  HttpMethod.DELETE, entity, String.class, params);
-
+    public static <T> ResponseEntity<T> postEntityMethod(String url, HttpEntity<Object> entity, Class<T> clazz) {
+        ResponseEntity<T> result = restTemplate.postForEntity(url, entity, clazz);
+        return result;
     }
 
+    public static <T> ResponseEntity<T> getEntityMethod(String url, Class<T> clazz) {
+        ResponseEntity<T> result = restTemplate.getForEntity(url, clazz);
+        return result;
+    }
 
-    public static void callUpdatePerson(String token, UUID uuid) {
-        String bearerToken = "Bearer " + token;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", bearerToken);
+    public static <T> ResponseEntity<T> exchangeGetMethod(String url, HttpEntity<Object> entity, Class<T> clazz) {
+        ResponseEntity<T> result = restTemplate.exchange(url, HttpMethod.GET, entity, clazz);
+        return result;
+    }
 
-        Person person = new Person();
-        person.setName("RestClientUpdated");
-        person.setPassword("pass2");
-       // person.setUuid(uuid);
+    public static <T> ResponseEntity<T> exchangeGetMethodWithParams(String url, HttpEntity<Object> entity, Class<T> clazz, Object params) {
+        ResponseEntity<T> result = restTemplate.exchange(url, HttpMethod.GET, entity, clazz, params);
+        return result;
+    }
 
-        Map<String, UUID> params = new HashMap<>();
-        params.put("uuid", uuid);
+    public static <T> ResponseEntity<T> exchangeDeleteMethodWithParams(String url, HttpEntity<Object> entity, Class<T> clazz, Object params) {
+        ResponseEntity<T> result = restTemplate.exchange(url, HttpMethod.DELETE, entity, clazz, params);
+        return result;
+    }
 
-        HttpEntity<Person> entity = new HttpEntity<>(person, headers);
+    public static <T> ResponseEntity<T> exchangeUpdateMethodWithParams(String url, HttpEntity<Object> entity, Class<T> clazz, Object params) {
+        ResponseEntity<T> result = restTemplate.exchange(url, HttpMethod.PUT, entity, clazz, params);
+        return result;
+    }
 
-
-        ResponseEntity<String> result = restTemplate.exchange(UPDATE_PERSON_API, HttpMethod.PUT, entity, String.class, params);
-        System.out.println("Updated person UUID: " + result.getBody() + "\n");
+    public static <T> ResponseEntity<T> exchangePostMethodWithParams(String url, HttpEntity<Object> entity, Class<T> clazz, Object params) {
+        ResponseEntity<T> result = restTemplate.exchange(url, HttpMethod.POST, entity, clazz, params);
+        return result;
     }
 
 }
