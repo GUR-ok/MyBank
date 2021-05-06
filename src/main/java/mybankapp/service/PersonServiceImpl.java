@@ -33,15 +33,7 @@ public class PersonServiceImpl implements PersonService{
     private final AccountDAO accountDAO;
     private final TransactionDAO transactionDAO;
     private final RoleDAO roleDAO;
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptpasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptpasswordEncoder;
-    }
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Person getPersonByName(String name) throws MyBusinessException {
